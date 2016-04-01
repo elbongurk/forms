@@ -1,0 +1,18 @@
+<%= panels_for "Create Form" do %>
+  <%= form_for @form do |form| %>
+    <%= form.errors %>
+    <%= form.field_for :name do |name| %>
+      <%= name.label %>
+      <%= name.text_field %>
+    <% end %>
+    <%= form.field_for :redirect_url do |redirect_url| %>
+      <%= redirect_url.label %>
+      <%= redirect_url.text_field %>
+    <% end %>
+    <%= form.field_for :email do |email| %>
+      <label class="checkbox"><%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions</label>
+    <% end %>
+    <p><%= form.submit "Create Form" %> or <%= link_to "Cancel", forms_path %></p>
+  <% end %>
+<% end %>
+

@@ -1,0 +1,51 @@
+$buttons-list: 'button',
+               '.button',
+               'input[type="button"]',
+               'input[type="reset"]',
+               'input[type="submit"]';
+
+$all-buttons:        assign-inputs($buttons-list);
+$all-buttons-active: assign-inputs($buttons-list, active);
+$all-buttons-focus:  assign-inputs($buttons-list, focus);
+$all-buttons-hover:  assign-inputs($buttons-list, hover);
+
+$all-button-inputs:        $all-buttons;
+$all-button-inputs-active: $all-buttons-active;
+$all-button-inputs-focus:  $all-buttons-focus;
+$all-button-inputs-hover:  $all-buttons-hover;
+
+#{$all-buttons} {
+  appearance: none;
+  background-color: $action-color;
+  border: 0;
+  border-radius: $base-border-radius;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 600;
+  line-height: 1;
+  padding: $small-spacing $base-spacing;
+  text-decoration: none;
+  transition: background-color $base-duration $base-timing;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background-color: shade($action-color, 20%);
+    color: #fff;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background-color: $action-color;
+    }
+  }
+}

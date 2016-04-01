@@ -1,0 +1,9 @@
+<%= panels_for [@form, @submission] do %>
+  <dl>
+    <% @submission.payload.each do |key, value| %>
+      <dt><%= key %></dt>
+      <dd><%= value %></dd>
+    <% end %>
+  </dl>
+  <p><%= link_to "Destroy", form_submission_path(@form, @submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" }, class: :button %></p>
+<% end %>

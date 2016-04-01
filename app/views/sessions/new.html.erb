@@ -1,0 +1,20 @@
+<div class="panel-small">
+  <div class="panel-body">
+    <h2>Sign in</h2>
+    <%= form_for @session do |form| %>
+      <%= form.errors %>
+      <%= form.field_for :email do |email| %>
+        <%= email.label %>
+        <%= email.email_field %>
+      <% end %>
+      <%= form.field_for :password do |password| %>
+        <%= password.label %>
+        <%= password.password_field %>
+      <% end %>
+      <p><%= form.submit "Sign in", class: "button" %></p>
+    <% end %>
+  </div>
+  <footer>
+    <p>No account? <%= link_to "Sign up", sign_up_path %>.</p>
+  </footer>
+</div>

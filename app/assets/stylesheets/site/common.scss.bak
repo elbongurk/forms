@@ -1,0 +1,100 @@
+[role="container"] {
+  @include clearfix;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  @media (min-width: $medium-screen) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  @media (min-width: $large-screen) {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+}
+
+body {
+  background: #f8f8f8;
+}
+
+header {
+  background: #fff;
+  border-bottom: #ddd;
+  @include clearfix;
+  h1 {
+    line-height: 40px;
+    margin: 0;
+    float: left;
+    a {
+      color: #464646;
+      &:hover {
+        color: $dark-gray;
+      }
+    }
+  }
+  nav {
+    float: right;
+    ul li {
+      line-height: 40px;
+      display: inline-block;
+      margin-left: 8px;
+      a {
+        color: #888;
+        &:hover {
+          color: $dark-gray;
+        }
+      }
+    }
+  }
+}
+
+h2[role="banner"] {
+  max-width: $max-width;
+  padding-left: 12px;
+  padding-right: 12px;
+  @media (min-width: $medium-screen) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  @media (min-width: $large-screen) {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+  text-align: center;
+  background: #333;
+  color: #fff;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+table {
+  tbody tr:hover {
+    background-color: pink;
+    cursor: pointer
+  }
+}
+
+dl {
+  @include clearfix;
+  dt {
+    display: block;
+    text-align: right;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.8em;
+    letter-spacing: 0.0357em;
+    color: #7b808c;
+    float: left;
+    width: 14%;
+    clear: left;
+    margin-right: 2%;
+    margin-top: 0;
+  }
+  dd {
+    display: block;
+    float: left;
+    width: 84%;
+    margin-bottom: 1.5em;
+  }
+}

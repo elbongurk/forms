@@ -1,0 +1,17 @@
+<%= panels do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Created At</th>
+        <th>Name</th>
+        <th>Submissions</th>
+        <th>Updated At</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @forms %>
+    </tbody>
+  </table>
+  <p><%= link_to "New Form", new_form_path, class: :button %></p>
+<% end %>
