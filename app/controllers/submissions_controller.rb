@@ -4,7 +4,7 @@ class SubmissionsController < ApplicationController
 
   def index
     @form = current_user.forms.where(id: params[:form_id]).take!
-    @submissions = @form.submissions.limit(5)
+    @submissions = @form.submissions.where(spam: false)
   end
   
   def show
@@ -17,7 +17,9 @@ class SubmissionsController < ApplicationController
   def create
     form = Form.where(uid: params[:form_uid]).take!
 
-    form.submissions.create!(payload: safe_params.to_h)
+    submission = form.submissions.create!(payload: safe_params, headers: safe_headers)
+
+    SubmissionPostedJob.perform_later submission.id
 
     if form.redirect_url?
       redirect_to form.redirect_url
@@ -37,6 +39,10 @@ class SubmissionsController < ApplicationController
   private
 
   def safe_params
-    params.except(:controller, :action, :form_uid).permit!
+    params.except(:controller, :action, :form_uid).permit!.to_h
+  end
+
+  def safe_headers
+    request.headers.select { |k,v| k =~ /^HTTP_/ }.reject { |k,v| 'HTTP_COOKIE' == k }.to_h
   end
 end

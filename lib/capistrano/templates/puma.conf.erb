@@ -1,0 +1,22 @@
+description "Puma Background Worker"
+
+stop on (stopping puma-manager or runlevel [06])
+
+setuid <%= host.user %>
+setgid <%= host.user %>
+
+respawn
+respawn limit 3 30
+
+instance ${app}
+
+script
+exec /bin/bash <<EOT
+  source /etc/environment.local
+
+  cd $app
+  logger -t puma "Starting server: $app"
+
+  exec bundle exec puma -C config/puma.rb -b unix://tmp/sockets/puma.sock --redirect-stdout log/puma.stdout.log --redirect-stderr log/puma.stderr.log
+EOT
+end script

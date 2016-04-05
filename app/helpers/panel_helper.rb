@@ -14,7 +14,7 @@ module PanelHelper
     include Rails.application.routes.url_helpers
     
     def self.root_title
-      Rails.application.class.to_s.split('::')[1]
+      Rails.application.class.to_s.split('::').first
     end
 
     def initialize(obj = nil)

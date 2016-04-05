@@ -1,0 +1,22 @@
+description "Que Background Worker"
+
+stop on (stopping que-manager or runlevel [06])
+
+setuid <%= host.user %>
+setgid <%= host.user %>
+
+respawn
+respawn limit 3 30
+
+instance ${app}
+
+script
+exec /bin/bash <<EOT
+  source /etc/environment.local
+
+  cd $app
+  logger -t que "Starting worker: $app"
+
+  exec bundle exec que ./config/environment.rb
+EOT
+end script

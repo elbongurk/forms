@@ -1,0 +1,14 @@
+<%= @form.name %>
+<%= '=' * @form.name.size %>
+
+Your form received a new submission:
+
+<% @submission.payload.each do |key, value| %>
+  <%= key %>
+  <%= "-" * key.size %>
+  <%= value %>
+  
+<% end %>
+
+<%= '-' * (15 + form_submission_url(@form, @submission).size) %>
+View in Forms: <%= form_submission_url(@form, @submission) %>

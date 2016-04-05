@@ -2,12 +2,12 @@ class FormsController < ApplicationController
   before_action :authorize
 
   def index
-    @forms = current_user.forms.includes(:submissions)
+    @forms = current_user.forms
   end
 
   def show
-    @form = current_user.forms.includes(:submissions).where(id: params[:id]).take!
-    @submissions = @form.submissions
+    @form = current_user.forms.where(id: params[:id]).take!
+    @submissions = @form.submissions.where(spam: false).limit(5)
   end
 
   def new

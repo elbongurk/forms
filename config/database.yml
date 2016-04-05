@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: forms_production
-  username: root
-  password: <%= ENV['FORMS_DATABASE_PASSWORD'] %>

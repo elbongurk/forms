@@ -3,6 +3,8 @@ class CreateSubmissions < ActiveRecord::Migration[5.0]
     create_table :submissions do |t|
       t.integer :form_id, null: false
       t.json :payload
+      t.json :headers
+      t.boolean :spam
       t.timestamps null: false
     end
 
