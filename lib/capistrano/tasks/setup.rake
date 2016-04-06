@@ -123,10 +123,14 @@ task setup: [ 'setup:binaries',
               'setup:que',
               'setup:ssh' ]
 
-task :load do
-  task :defaults do
+namespace :deploy do
+  task :set_linked_dirs do
     set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/sockets', 'tmp/pids')
   end
+end
+
+Capistrano::DSL.stages.each do |stage|
+  after stage, 'deploy:set_linked_dirs'
 end
 
 def template(from, to, host)
