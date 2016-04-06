@@ -9,7 +9,7 @@ class Submission < ApplicationRecord
   end
 
   def ham?
-    self.spam == true
+    self.spam == false
   end
 
   def user_ip
