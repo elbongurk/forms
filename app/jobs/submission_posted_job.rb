@@ -1,6 +1,6 @@
 class SubmissionPostedJob < ApplicationJob
   def perform(submission_id, *options)
-    submission = Submission.includes(form: [:user]).where(id: submission_id).take!
+    submission = Submission.includes(:form).where(id: submission_id).take!
 
     submission.check!
     
