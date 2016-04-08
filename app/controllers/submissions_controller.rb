@@ -1,10 +1,15 @@
 class SubmissionsController < ApplicationController
-  before_action :authorize, except: :create
+  before_action :require_authorization, except: :create
   skip_before_action :verify_authenticity_token, only: :create
 
   def index
     @form = current_user.forms.where(id: params[:form_id]).take!
     @submissions = @form.submissions.where(spam: false)
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @submissions.to_csv, type: Mime::CSV }
+    end
   end
   
   def show
@@ -12,8 +17,6 @@ class SubmissionsController < ApplicationController
     @form = @submission.form
   end
 
-  # this is a special case action that isn't authenticated
-  # but instead works off of knowning the form's uid
   def create
     form = Form.where(uid: params[:form_uid]).take!
 

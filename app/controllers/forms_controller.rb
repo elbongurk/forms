@@ -1,5 +1,5 @@
 class FormsController < ApplicationController
-  before_action :authorize
+  before_action :require_authorization
 
   def index
     @forms = current_user.forms

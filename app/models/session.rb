@@ -9,8 +9,15 @@ class Session
   def authenticate
     if valid?
       if user = User.where(email: email).take
-        return user if user.authenticate(password)
+        if user.authenticate(password)
+          return user
+        else
+          errors[:password] << "does not appear to be correct"
+        end
+      else
+        errors[:email] << "does not have an account"
       end
     end
+    return nil
   end
 end

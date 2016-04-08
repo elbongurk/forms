@@ -1,0 +1,23 @@
+<div class="panel">
+  <header>
+    <h2>Edit Profile</h2>
+  </header>
+  <div class="panel-body">
+    <%= form_for @user, url: profile_path do |form| %>
+      <%= form.errors %>
+      <%= form.field_for :email do |email| %>
+        <%= email.label %>
+        <%= email.email_field %>
+      <% end %>
+      <%= form.field_for :password do |password| %>
+        <%= password.label %>
+        <%= password.password_field %>
+      <% end %>
+      <%= form.field_for :password_confirmation do |password_confirmation| %>
+        <%= password_confirmation.label %>
+        <%= password_confirmation.password_field %>
+      <% end %>
+      <p><%= form.submit "Update Profile" %> or <%= link_to "Cancel", root_path %></p>
+    <% end %>
+  </div>
+</div>

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'sign-up', to: 'users#new', as: 'sign_up'
   delete 'sign-out', to: 'sessions#destroy', as: 'sign_out'
 
+  resource :profile, controller: :users, only: [:edit, :update]
+  resources :passwords, only: [:create, :new, :edit, :update], param: :password_reset_token
+
   resources :forms, path: '/' do
     resources :submissions, only: [:index, :show, :destroy]
   end

@@ -2,15 +2,15 @@ namespace :setup do
   desc "Adds requried ubuntu packages"
   task :apt do
     on roles(:app) do |host|
-      template 'ruby.list', '/etc/apt/sources.list.d/ruby.list', host
+      template 'ruby.list', '/etc/apt/sources.list.d/ruby.list'
       execute 'apt-key', 'adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C3173AA6'
     end
     on roles(:db) do |host|
-      template 'postgres.list', '/etc/apt/sources.list.d/postgres.list', host
+      template 'postgres.list', '/etc/apt/sources.list.d/postgres.list'
       execute :wget, '--quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -'
     end
     on roles(:web) do |host|
-      template 'nginx.list', '/etc/apt/sources.list.d/nginx.list', host
+      template 'nginx.list', '/etc/apt/sources.list.d/nginx.list'
       execute :wget, '--quiet -O - http://nginx.org/keys/nginx_signing.key | apt-key add -'
     end
   end
@@ -54,17 +54,6 @@ namespace :setup do
     end
   end
 
-  desc "Setup rails"
-  task :rails do
-    on roles(:app) do |host|
-      execute :echo, "'export HOST=\"#{host}\"' > /etc/environment.local"
-      rails_env = fetch(:rails_env) || fetch(:stage)
-      execute :echo, "'export RAILS_ENV=\"#{rails_env}\"' >> /etc/environment.local"
-      secret_key_base = capture(:openssl, 'rand -hex 64')      
-      execute :echo, "'export SECRET_KEY_BASE=\"#{secret_key_base}\"' >> /etc/environment.local"
-    end
-  end
-
   desc "Setup postgres"
   task :postgres do
     on roles(:db) do |host|
@@ -77,16 +66,16 @@ namespace :setup do
   task :nginx do
     on roles(:web) do |host|
       execute :rm, '-f /etc/nginx/conf.d/default.conf'
-      template 'nginx.conf', "/etc/nginx/conf.d/#{fetch(:application)}.conf", host
+      template 'nginx.conf', "/etc/nginx/conf.d/#{fetch(:application)}.conf"
     end
   end
 
   desc "Setup puma"
   task :puma do
     on roles(:app) do |host|
-      template 'puma.conf', '/etc/init/puma.conf', host
-      template 'puma-manager.conf', '/etc/init/puma-manager.conf', host
-      execute :echo, "'#{current_path}' > /etc/puma.conf"
+      template 'puma.conf', '/etc/init/puma.conf', { user: host.user }
+      template 'puma-manager.conf', '/etc/init/puma-manager.conf'
+      append current_path, '/etc/puma.conf'
     end
   end
 
@@ -95,17 +84,18 @@ namespace :setup do
     on roles(:app) do |host|
       template 'que.conf', '/etc/init/que.conf', host
       template 'que-manager.conf', '/etc/init/que-manager.conf', host
-      execute :echo, "'#{current_path}' > /etc/que.conf"
+      append current_path, '/etc/que.conf'
     end
   end
 
   desc "Create SSH deploy key for github"
   task :ssh do
     on roles(:all) do |host|
-      execute 'ssh-keygen', '-t rsa -b 4096 -f $HOME/.ssh/id_rsa -N ""'
-      key = capture :cat, '$HOME/.ssh/id_rsa.pub'
-      puts "SSH Key for Github Deploy @ https://github.com/owner/repo/settings/keys"
-      puts key
+      unless test('[ -s $HOME/.ssh/id_rsa.pub ]')
+        execute 'ssh-keygen', '-t rsa -b 4096 -f $HOME/.ssh/id_rsa -N ""'
+        key = capture :cat, '$HOME/.ssh/id_rsa.pub'
+        info "SSH Key for Github Deploy @ https://github.com/owner/repo/settings/keys:\n#{key}"
+      end
     end
   end
 
@@ -116,7 +106,6 @@ end
 desc "Run setup"
 task setup: [ 'setup:binaries',
               'setup:ruby',
-              'setup:rails',
               'setup:postgres',
               'setup:nginx',
               'setup:puma',
@@ -125,17 +114,56 @@ task setup: [ 'setup:binaries',
 
 namespace :deploy do
   task :set_linked_dirs do
-    set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/sockets', 'tmp/pids')
+    set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/sockets', 'tmp/pids', 'tmp/cache')
   end
+  task :set_linked_files do
+    set :linked_files, fetch(:linked_files, []).push('.env')
+  end
+
+  desc 'Adds environment vars if empty'
+  task :environment do
+    on roles(:app) do |host|
+      unless test("[ -s #{ shared_path }/.env ]")
+        options = { }
+        options[:host] = host
+        options[:secret_key_base] = capture(:openssl, 'rand -hex 64')
+        template 'env', "#{shared_path}/.env", options
+      end
+    end
+  end
+
+  desc 'Restarts services if running'
+  task :restart do
+    on roles(:app) do |host|
+      if test("status puma app=#{current_path}")
+        execute :restart, "puma app=#{current_path}"
+      end
+      if test("status que app=#{current_path}")
+        execute :restart, "que app=#{current_path}"
+      end
+    end
+  end
+
+  # after 'deploy:published', 'deploy:environment'
+  # after 'deploy:finished', 'deploy:restart'
 end
 
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:set_linked_dirs'
+  after stage, 'deploy:set_linked_files'
 end
 
-def template(from, to, host)
-  template_path = File.expand_path("../../templates/#{from}.erb", __FILE__)
-  template = ERB.new(File.new(template_path).read).result(binding)
-  upload! StringIO.new(template), to
-  execute :chmod, "644 #{to}"
+def template(from, to, options = {})
+  unless test("[ -s #{to} ]")
+    template_path = File.expand_path("../../templates/#{from}.erb", __FILE__)
+    template = ERB.new(File.new(template_path).read).result(binding)
+    upload! StringIO.new(template), to
+    execute :chmod, "644 #{to}"
+  end
+end
+
+def append(text, to)
+  unless test("[ -s #{to} ] && grep -q '#{text}' #{to}")
+    execute :echo, "'#{text}' >> #{to}"
+  end
 end

@@ -4,10 +4,8 @@
 Your form received a new submission:
 
 <% @submission.payload.each do |key, value| %>
-  <%= key %>
-  <%= "-" * key.size %>
-  <%= value %>
-  
+<%= key %>
+: <%= value %>
 <% end %>
 
 <%= '-' * (15 + form_submission_url(@form, @submission).size) %>

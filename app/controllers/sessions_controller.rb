@@ -7,15 +7,16 @@ class SessionsController < ApplicationController
     @session = Session.new(session_params)
     if user = @session.authenticate
       sign_in user
+      flash[:success] = "Welcome back #{user.email}"
       redirect_back_or root_url
     else
-      flash.now[:error] = "Bad email or password"
       render action: :new, status: :unauthorized
     end
   end
 
   def destroy
     sign_out
+    flash[:success] = "You've been successfully signed out"
     redirect_to sign_in_url
   end
   

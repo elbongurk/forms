@@ -1,0 +1,16 @@
+<div class="panel-small">
+  <div class="panel-body">
+    <h2>Change Password</h2>
+    <%= form_for @password do |form| %>
+      <%= form.errors %>
+      <%= form.field_for :password do |password| %>
+        <%= password.label %>
+        <%= password.password_field %>
+      <% end %>
+      <p><%= form.submit "Change password", class: "button" %></p>
+    <% end %>
+  </div>
+  <footer>
+    <p>Password found? <%= link_to "Sign in", sign_in_path %>.</p>
+  </footer>
+</div>

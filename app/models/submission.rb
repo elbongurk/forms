@@ -4,6 +4,25 @@ class Submission < ApplicationRecord
   validates :payload, presence: true
   validates :headers, presence: true
 
+  def self.to_csv
+    CSV.generate do |csv|
+      headers = []
+      rows = []
+      all.each do |submission|
+        row = []
+        submission.payload.each do |key, value|          
+          headers << key unless headers.include? key
+          row << value
+        end
+        rows << row
+      end
+      csv << headers
+      rows.each do |row|
+        csv << row
+      end
+    end
+  end
+
   def preview
     self.payload.values.first
   end

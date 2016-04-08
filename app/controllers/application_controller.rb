@@ -11,9 +11,15 @@ class ApplicationController < ActionController::Base
     super
   end
 
-  def authorize
+  def require_authorization
     unless signed_in?
       deny_access
+    end
+  end
+
+  def require_no_authorization
+    unless signed_out?
+      redirect_back(fallback_location: root_url)
     end
   end
 

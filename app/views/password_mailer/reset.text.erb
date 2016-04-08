@@ -1,0 +1,10 @@
+Password Reset
+==============
+
+We have recieved a request to reset your password. If this was from you, please continue, otherwise you can safely disreguard this email.
+
+Reset Password
+: <%= edit_password_url(@user.password_reset_token) %>
+
+<%= '-' * (18 + root_url.size) %>
+Powered by Forms: <%= root_url %>

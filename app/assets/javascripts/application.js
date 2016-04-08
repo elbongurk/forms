@@ -16,7 +16,6 @@
 //= require local_time
 //= require_tree .
 
-
 $(document).on("turbolinks:load", function() {
   $("table").on("click", "tr", function(event) {
     if (!event.target.href) {
