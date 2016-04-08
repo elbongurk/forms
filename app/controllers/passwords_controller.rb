@@ -8,8 +8,9 @@ class PasswordsController < ApplicationController
   def create
     @password = Password.new(create_params)
 
-    if @password.reset
-      flash[:success] = "Check #{@password.email} to reset your password"
+    if user = @password.request
+      PasswordsMailer.requested_by_user(user).deliver_later
+      flash[:success] = "Check #{user.email} to reset your password"
       redirect_to root_url
     else
       render action: :new, status: :unauthorized
@@ -23,7 +24,8 @@ class PasswordsController < ApplicationController
   def update
     @password = Password.new(update_params)
 
-    if user = @password.update
+    if user = @password.reset
+      PasswordsMailer.reset_by_user(user).deliver_later
       sign_in user
       flash[:success] = "Your password has been updated"
       redirect_to root_url

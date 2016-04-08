@@ -1,6 +1,6 @@
 class SubmissionMailer < ApplicationMailer
-  def submitted(submission_id)
-    @submission = Submission.includes(form: [:user]).where(id: submission_id).take!
+  def submitted(submission)
+    @submission = submission
     @form = @submission.form
     @user = @form.user
     if @form.email?

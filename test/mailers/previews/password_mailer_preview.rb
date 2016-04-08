@@ -1,17 +1,10 @@
 # Preview all emails at http://localhost:3000/rails/mailers/password_mailer
 class PasswordMailerPreview < ActionMailer::Preview
-  def reset
-    user = User.where.not(password_reset_token: nil).take
-
-    if user.nil?
-      user = User.first
-      user.set_password_reset
-    end
-    
-    PasswordMailer.reset(user.password_reset_token)
+  def requested_by_user
+    PasswordMailer.requested_by_user(User.first)
   end
 
-  def changed
-    PasswordMailer.changed(User.first.id)
+  def reset_by_user
+    PasswordMailer.reset_by_user(User.first)
   end
 end
