@@ -9,7 +9,7 @@ class PasswordsController < ApplicationController
     @password = Password.new(create_params)
 
     if user = @password.request
-      PasswordsMailer.requested_by_user(user).deliver_later
+      PasswordMailer.requested_by_user(user).deliver_later
       flash[:success] = "Check #{user.email} to reset your password"
       redirect_to root_url
     else
@@ -25,7 +25,7 @@ class PasswordsController < ApplicationController
     @password = Password.new(update_params)
 
     if user = @password.reset
-      PasswordsMailer.reset_by_user(user).deliver_later
+      PasswordMailer.reset_by_user(user).deliver_later
       sign_in user
       flash[:success] = "Your password has been updated"
       redirect_to root_url
