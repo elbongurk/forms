@@ -6,13 +6,14 @@ class Submission < ApplicationRecord
 
   def self.to_csv
     CSV.generate do |csv|
-      headers = []
-      rows = []
+      headers = [ :submitted ]
+      rows = []      
       all.each do |submission|
-        row = []
-        submission.payload.each do |key, value|          
+        row = [ submission.submitted ]
+        submission.payload.each do |key, value|
           headers << key unless headers.include? key
-          row << value
+          index = headers.index key
+          row[index] = value
         end
         rows << row
       end
@@ -23,6 +24,10 @@ class Submission < ApplicationRecord
     end
   end
 
+  def submitted
+    self.created_at
+  end
+  
   def preview
     self.payload.values.first
   end
