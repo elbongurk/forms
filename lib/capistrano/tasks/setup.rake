@@ -45,6 +45,17 @@ namespace :setup do
     end
   end
 
+  desc 'Adds environment variables'
+  task :environment do
+    on roles(:app) do |host|
+      options = { }
+      options[:rails_env] = fetch(:rails_env) || fetch(:stage)
+      options[:host] = host
+      options[:secret_key_base] = capture(:openssl, 'rand -hex 64')
+      template 'environment.local', '/etc/environment.local', options
+    end
+  end
+
   desc "Setup ruby"
   task :ruby do
     on roles(:app) do |host|
@@ -105,6 +116,7 @@ end
 
 desc "Run setup"
 task setup: [ 'setup:binaries',
+              'setup:environment',
               'setup:ruby',
               'setup:postgres',
               'setup:nginx',
@@ -115,21 +127,6 @@ task setup: [ 'setup:binaries',
 namespace :deploy do
   task :set_linked_dirs do
     set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/sockets', 'tmp/pids', 'tmp/cache')
-  end
-  task :set_linked_files do
-    set :linked_files, fetch(:linked_files, []).push('.env')
-  end
-
-  desc 'Adds environment vars if empty'
-  task :environment do
-    on roles(:app) do |host|
-      unless test("[ -s #{ shared_path }/.env ]")
-        options = { }
-        options[:host] = host
-        options[:secret_key_base] = capture(:openssl, 'rand -hex 64')
-        template 'env', "#{shared_path}/.env", options
-      end
-    end
   end
 
   desc 'Restarts services if running'
@@ -144,13 +141,11 @@ namespace :deploy do
     end
   end
 
-  # after 'deploy:published', 'deploy:environment'
-  # after 'deploy:finished', 'deploy:restart'
+  after 'deploy:finished', 'deploy:restart'
 end
 
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:set_linked_dirs'
-  after stage, 'deploy:set_linked_files'
 end
 
 def template(from, to, options = {})

@@ -15,7 +15,7 @@ instance ${app}
 script
 exec /bin/bash <<EOT
   cd $app
-  source .env
+  source /etc/environment.local
 
   logger -t puma "Starting server: $app"
 

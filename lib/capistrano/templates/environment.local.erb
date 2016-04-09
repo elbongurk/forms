@@ -1,4 +1,4 @@
-export RAILS_ENV="<%= fetch(:rails_env) || fetch(:stage) %>"
+export RAILS_ENV="<%= options[:rails_env] %>"
 export RAILS_HOST="<%= options[:host] %>"
 export SECRET_KEY_BASE="<%= options[:secret_key_base] %>"
 
