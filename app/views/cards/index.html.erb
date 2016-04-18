@@ -1,0 +1,16 @@
+<%= panels_for [@user, 'Payment Methods'] do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Card</th>
+        <th>Number</th>
+        <th>Expiration</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @cards %>
+    </tbody>
+  </table>
+  <%= link_to "Add Payment Method", new_account_card_path, { class: :button,  } %>
+<% end %>

@@ -1,4 +1,4 @@
-<%= panels_for [@form, @submission] do %>
+<%= panels_for [:root, @form, @submission] do %>
   <dl>
     <% @submission.payload.each do |key, value| %>
       <dt><%= key %></dt>

@@ -1,4 +1,4 @@
-<%= panels do %>
+<%= panel_for :root do %>
   <table>
     <thead>
       <tr>
@@ -13,5 +13,10 @@
       <%= render @forms %>
     </tbody>
   </table>
-  <p><%= link_to "New Form", new_form_path, class: :button %></p>
+  <% if @user.form_quota_met?  %>
+    <p>You will need to upgrade your subscription in order to create more forms.</p>
+    <p><%= link_to "Upgrade Subscription", account_subscription_path, class: :button %></p>
+  <% else %>
+    <p><%= link_to "New Form", new_form_path, class: :button %></p>
+  <% end %>
 <% end %>

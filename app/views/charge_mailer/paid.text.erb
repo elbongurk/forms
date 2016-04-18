@@ -1,0 +1,12 @@
+Payment Receipt
+===============
+
+*Thank you* for being a customer!
+
+Duration<%= ' ' * 19 %>Plan<%= ' ' * (@charge.subscription.plan.description.length + number_to_currency(@charge.amount_in_dollars).length - 5) %>Price
+<%= '-' * (31 + @charge.subscription.plan.description.length + number_to_currency(@charge.amount_in_dollars).length) %>
+<%= @charge.subscription.period_start.getlocal.strftime('%m/%d/%Y') %> - <%= @charge.subscription.period_end.getlocal.strftime('%m/%d/%Y') %>    <%=  @charge.subscription.plan.description %>    <%= number_to_currency(@charge.amount_in_dollars) %>
+
+
+<%= '-' * (22 + account_charges_url.size) %>
+View Payment Receipt: <%= account_charges_url %>

@@ -1,0 +1,17 @@
+<%= panels_for [@user, 'Payment History'] do %>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Payment method</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @charges %>
+    </tbody>
+  </table>
+<% end %>

@@ -5,8 +5,35 @@ class User < ApplicationRecord
   has_many :forms
   has_many :submissions, through: :forms
 
+  has_many :subscriptions
+  has_many :charges, through: :subscriptions
+
+  has_many :cards do
+    def create_for_token(token, other_attributes = {})
+      create_for_user_and_token(self.proxy_association.owner, token, other_attributes)
+    end
+  end
+
   validates :email, presence: true, uniqueness: true, email: true
-  validates :password_reset_token, uniqueness: true
+  validates :password_reset_token, uniqueness: true, allow_blank: true
+
+  def form_quota_met?
+    self.forms.count >= self.plan.form_quota
+  end
+  
+  def plans
+    Plan.unarchived.where('form_quota >= ?', self.forms.count)
+  end
+
+  def plan
+    self.subscriptions.unarchived.take.try(:plan)
+  end
+
+  def default_card
+    if self.payment_token.present?
+      self.cards.unarchived.default.take
+    end
+  end
 
   def password_resettable?
     self.password_reset_token && self.password_reset_requested_at &&

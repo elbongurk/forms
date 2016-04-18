@@ -1,7 +1,8 @@
 class FormsController < ApplicationController
-  before_action :require_authorization
+  before_action :require_subscription
 
   def index
+    @user = current_user
     @forms = current_user.forms
   end
 
@@ -11,15 +12,23 @@ class FormsController < ApplicationController
   end
 
   def new
-    @form = current_user.forms.new
+    if current_user.form_quota_met?
+      redirect_to forms_url
+    else
+      @form = current_user.forms.new
+    end
   end
 
   def create
-    @form = current_user.forms.new(safe_params)
-    if @form.save
-      redirect_to form_url(@form)
+    if current_user.form_quota_met?
+      redirect_to forms_url
     else
-      render action: :new
+      @form = current_user.forms.new(safe_params)
+      if @form.save
+        redirect_to form_url(@form)
+      else
+        render action: :new
+      end
     end
   end
 

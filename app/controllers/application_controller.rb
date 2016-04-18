@@ -11,6 +11,17 @@ class ApplicationController < ActionController::Base
     super
   end
 
+  def require_subscription
+    if signed_in?
+      unless current_user.subscriptions.unarchived.exists?
+        flash[:notice] = "Please update your subscription"
+        redirect_to account_subscription_url
+      end
+    else
+      deny_access
+    end
+  end
+  
   def require_authorization
     unless signed_in?
       deny_access

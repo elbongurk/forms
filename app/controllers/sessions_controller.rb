@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :require_no_authorization, except: :destroy
+  before_action :require_authorization, only: :destroy
+  
   def new
     @session = Session.new
   end

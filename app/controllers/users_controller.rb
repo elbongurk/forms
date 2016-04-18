@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(create_params)
     if @user.save
+      @user.subscriptions.create_trial_for_plan(Plan.unarchived.default.take)
       sign_in @user
       redirect_to root_url
     else

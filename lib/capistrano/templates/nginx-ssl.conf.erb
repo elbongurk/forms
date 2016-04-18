@@ -1,0 +1,54 @@
+upstream <%= fetch(:application) %> {
+    server unix:<%= current_path %>/tmp/sockets/puma.sock fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name <%= options.host %>;
+    server_tokens off;
+    return 301 https://$http_host$request_uri;    
+}
+
+server {
+    listen 443 ssl;
+    server_name <%= options.host %>;
+    server_tokens off;
+    root <%= current_path %>/public;
+
+    ## Generate private cert key and signing request
+    ##   openssl req -new -newkey rsa:2048 -nodes -sha256 -keyout <%= fetch(:application) %>.key -out <%= fetch(:application) %>.csr
+    ##   concat csr with https://www.gandi.net/static/CAs/GandiStandardSSLCA2.pem to crt
+    # ssl_certificate /etc/nginx/ssl/<%= fetch(:application) %>.crt;
+    # ssl_certificate_key /etc/nginx/ssl/<%= fetch(:application) %>.key;
+
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/<%= fetch(:application) %>.crt;
+    ssl_certificate_key /etc/nginx/ssl/<%= fetch(:application) %>.key;
+
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+
+    ## Generate a stronger DHE parameter:
+    ##   openssl dhparam -out /etc/ssl/certs/dhparam.pem 4096
+    ##
+    # ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+    ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+    try_files $uri/index.html $uri @<%= fetch(:application) %>;
+
+    location @<%= fetch(:application) %> {
+        proxy_redirect off;
+
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_pass http://<%= fetch(:application) %>;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    client_max_body_size 10m;
+    keepalive_timeout 10;
+}

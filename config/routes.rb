@@ -3,13 +3,17 @@ Rails.application.routes.draw do
 
   resources :sessions, only: :create
   resources :users, only: :create
+  resources :passwords, only: [:create, :new, :edit, :update], param: :password_reset_token
 
   get 'sign-in', to: 'sessions#new', as: 'sign_in'
   get 'sign-up', to: 'users#new', as: 'sign_up'
   delete 'sign-out', to: 'sessions#destroy', as: 'sign_out'
 
-  resource :profile, controller: :users, only: [:edit, :update]
-  resources :passwords, only: [:create, :new, :edit, :update], param: :password_reset_token
+  resource :account, controller: :users, only: [:edit, :update] do
+    resource :subscription, only: [:show, :new, :create, :update ]
+    resources :cards, only: [:index, :new, :create, :destroy ]
+    resources :charges, only: :index
+  end
 
   resources :forms, path: '/' do
     resources :submissions, only: [:index, :show, :destroy]

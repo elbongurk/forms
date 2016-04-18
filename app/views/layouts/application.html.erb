@@ -7,20 +7,20 @@
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
 
-    <title>Forms</title>
+    <title>Elbongurk Forms</title>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
+    <%= render 'javascript' %>
   </head>
 
   <body>
     <header role="banner">
       <div role="container">
-        <h1><%= link_to "Emquad Forms", root_path %></h1>
+        <h1><%= link_to "Elbongurk Forms", root_path %></h1>
         <nav>
           <ul>
             <% if signed_in? %>
-              <li><%= link_to "Profile", edit_profile_path %></li>
+              <li><%= link_to "Account", edit_account_path %></li>
               <li><%= link_to "Sign out", sign_out_path, method: :delete %></li>
             <% else %>
               <li><%= link_to "Sign in", sign_in_path %></li>

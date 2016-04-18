@@ -1,8 +1,10 @@
 class ModelFormBuilder < ActionView::Helpers::FormBuilder
-  def errors
-    with_error_text(:base, '')
+  def errors(options = {})
+    if options[:render] || has_errors(:base)
+      @template.content_tag(:div, determine_error(:base), { class: 'base-error' })
+    end
   end
-  
+
   def field_for(method, options = {}, &block)
     builder = FieldFormBuilder.new(method, self)
     content = @template.capture(builder, &block)
@@ -59,10 +61,9 @@ class ModelFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def with_error_text(method, content)
-    if has_errors(method)
-      options = { class: 'field-error' }
-      content << @template.content_tag(:p, determine_error(method), options)
+  def with_error_text(method, content, options = {})
+    if options[:render] || has_errors(method)
+      content << @template.content_tag(:p, determine_error(method), { class: 'field-error' })
     else
       content
     end

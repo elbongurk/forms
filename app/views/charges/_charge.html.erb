@@ -1,0 +1,8 @@
+<tr>
+  <td></td>
+  <td><%= charge.id %></td>
+  <td><%= local_time(charge.created_at) %></td>
+  <td><%= number_to_currency(charge.amount_in_dollars) %></td>
+  <td><%= charge.subscription.plan.description %></td>
+  <td><%= charge.card.brand %> XXXX-XXXX-XXXX-<%= charge.card.last4 %></td>
+</tr>

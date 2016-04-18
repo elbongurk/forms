@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :require_authorization, except: :create
+  before_action :require_subscription, except: :create
   skip_before_action :verify_authenticity_token, only: :create
 
   def index

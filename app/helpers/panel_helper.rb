@@ -1,12 +1,11 @@
 module PanelHelper
-  def panels(&block)
-    template = capture(&block)
-    Panel.new.render template
+  def panel_for(obj, &block)
+    panels_for([obj], &block)
   end
   
-  def panels_for(obj, &block)
+  def panels_for(objs, &block)
     template = capture(&block)
-    Panel.new(obj).render template
+    Panel.new(objs).render template
   end
 
   class Panel
@@ -17,8 +16,8 @@ module PanelHelper
       Rails.application.class.to_s.split('::').first
     end
 
-    def initialize(obj = nil)
-      @obj = obj
+    def initialize(objs = nil)
+      @objs = objs
     end
 
     def render(template)
@@ -33,10 +32,6 @@ module PanelHelper
 
     private
 
-    def obj?
-      @obj.present?
-    end
-    
     def body(template)
       content_tag(:div, template, class: 'panel-body')
     end
@@ -44,47 +39,62 @@ module PanelHelper
     def titles
       titles = []
 
-      # add our root
-      titles << title_for(self.class.root_title, link: obj?)
-      
-      if obj = @obj
-        # add links to any intermediate items
-        if obj.is_a? Array
-          obj[0...-1].each do |item|
-            titles << title_for(item)
-          end
-          obj = obj[-1]
-        end
-        # add our last item but not as a link
-        titles << title_for(obj, link: false)
+      @objs[0...-1].each do |item|
+        titles << title_for(item)
       end
+      titles << title_for(@objs[-1], link: false)
 
       titles
     end
 
-    def title_for(obj, options = {})    
-      link = options[:link].nil? ? true : options[:link]
-
-      if obj.is_a? String
-        if link
-          link_to obj, root_path
-        else
-          obj
-        end
-      elsif obj.is_a? Form
-        if link
-          link_to obj.name, form_path(obj)
-        else
-          obj.name
-        end
-      elsif obj.is_a? Submission
-        if link
-          link_to "Submission", form_submission_path(obj.form, obj)
-        else
-          "Submission"
-        end
+    def title_for(obj, options = {})
+      opts = { link: true }.merge(options)
+      if opts[:link]
+        link_to title_text_for(obj), title_path_for(obj)
       else
-        raise ArgumentError "arguments passed to panels_for can't be handled"
+        title_text_for(obj)
+      end
+    end
+
+    # TODO: perhaps use content_for or yield this object so we can do this in the template
+    def title_text_for(obj)
+      case obj
+      when :root
+        self.class.root_title
+      when Form
+        obj.name
+      when Submission
+        'Submission'
+      when User
+        'Account'
+      when Subscription
+        'Subscription'
+      when :cards
+        'Payment Methods'
+      when String
+        obj
+      else
+        raise ArgumentError.new("argument '#{obj}' passed to #{__method__} can't be handled")
+      end
+    end
+    
+    # TODO: http://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html
+    def title_path_for(obj)
+      case obj
+      when :root
+        root_path
+      when Form
+        form_path(obj)
+      when Submission
+        form_submission_path(obj.form, obj)
+      when User
+        edit_account_path
+      when Subscription
+        account_subscription_path
+      when :cards
+        account_cards_path
+      else
+        raise ArgumentError.new("argument '#{obj}' passed to #{__method__} can't be handled")
       end
     end
 

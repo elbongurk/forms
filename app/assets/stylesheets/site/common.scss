@@ -66,6 +66,23 @@ body {
   font-size: 1.5em;
 }
 
+.panel-tools {
+  @include clearfix;
+  border-top: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+  margin-bottom: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  a {
+    float: left;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 0.875em;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+}
+
 .panel-small {
   margin: 60px auto 0;
   max-width: 380px;
@@ -124,7 +141,7 @@ header[role="banner"] {
 }
 
 table {
-  tbody tr:hover {
+  tbody tr[data-url]:hover {
     background-color: pink;
     cursor: pointer
   }
@@ -171,6 +188,11 @@ label.checkbox {
   font-weight: 400;
 }
 
+input.input-inline {
+  display: inline;
+  width: auto;
+}
+
 $alert-color: #fff6bf !default;
 $error-color: #fbe3e4 !default;
 $notice-color: #e5edf8 !default;
@@ -209,4 +231,12 @@ $success-color: #e6efc2 !default;
 
 .flash-success {
   @include flash($success-color);
+}
+
+.base-error {
+  @include flash($error-color);
+}
+
+.base-error:empty {
+  padding: 0; 
 }

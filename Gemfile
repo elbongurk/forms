@@ -19,6 +19,8 @@ gem 'bitters'
 
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'stripe'
+
 group :development, :test do
   gem 'byebug'
 end

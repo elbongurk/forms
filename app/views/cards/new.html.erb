@@ -1,0 +1,21 @@
+<%= panels_for [@user, @plan ? Subscription.new : :cards, 'Add Payment Method'] do %>
+  <%= form_for @card, url: account_cards_path do |form| %>
+    <%= hidden_field_tag :plan, @plan.name if @plan %>
+    <%= form.errors render: true %>
+    <div>
+      <label>Card Number</label>
+      <input type="text" size="20" data-stripe="number"/>
+    </div>
+    <div>
+      <label>CVC</label>
+      <input type="text" size="4" data-stripe="cvc"/>
+    </div>
+    <div>
+      <label>Expiration</label>
+      <input class="input-inline" type="text" size="2" placeholder="MM" data-stripe="exp-month"/>
+      <span> / </span>
+      <input class="input-inline" type="text" size="4" placeholder="YYYY" data-stripe="exp-year"/>
+    </div>
+    <%= form.submit "Add Payment Method" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,63 @@
+<%= panels_for [@user, 'Subscription'] do %>
+  <table>
+    <thead>
+      <tr>
+        <th>Plan</th>
+        <th>Price</th>
+        <th>Forms</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Plan.unarchived.order(sort: :desc).each do |plan| %>
+        <tr>
+          <td><%= plan.description %></td>
+          <td><%= number_to_currency(plan.price, precision: 0) %>/month</td>
+          <td><%= plan.form_quota %></td>
+          <td>
+            <% if @plans.include?(plan) %>
+              <% if @cards.count.zero? %>
+                <% if @plan == plan %>
+                  <%= link_to "Pay Now", new_account_card_path(plan: plan.name) %>
+                <% elsif @plan %>
+                  <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_card_path(plan: plan.name) %>
+                <% else %>
+                  <%= link_to "Choose this plan", new_account_card_path(plan: plan.name ) %>
+                <% end %>
+              <% else %>
+                <% if @plan == plan %>
+                  <span class="plan-current">Your Plan</span>
+                <% elsif @plan %>
+                  <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_subscription_path(plan: plan.name) %>
+                <% else %>
+                  <%= link_to "Choose this plan", new_account_subscription_path(plan: plan.name ) %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <span class="plan-unavailable">Unavailable</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @subscription %>
+    <% if @subscription.comped? %>
+      <p>You have been bestowed with a <strong>free subscription</strong>. Nice!</p>
+    <% elsif @subscription.trial? %>
+      <p>Your trial will end on <%= local_date @subscription.period_end %>.</p>
+    <% else %>
+      <%= form_for @subscription, url: account_subscription_path do |form| %>
+        <% if @subscription.cancel_at_period_end? %>
+          <%= form.hidden_field :cancel_at_period_end, value: false %>
+          <p>Your subscription will end on <%= local_date @subscription.period_end %>.</p>
+          <%= form.submit "Enable Auto-Renewal" %>
+        <% else %>
+          <%= form.hidden_field :cancel_at_period_end, value: true %>
+          <p>Your subscription will renew on <%= local_date @subscription.period_end %>.</p>
+          <%= form.submit "Disable Auto-Renewal", data: { confirm: "Are you sure you want to disable auto-renewal?" } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

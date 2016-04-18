@@ -1,4 +1,4 @@
-<%= panels_for "Create Form" do %>
+<%= panels_for [:root, "Create Form"] do %>
   <%= form_for @form do |form| %>
     <%= form.errors %>
     <%= form.field_for :name do |name| %>
