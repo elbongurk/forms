@@ -22,7 +22,7 @@ class SubmissionsController < ApplicationController
 
     submission = form.submissions.create!(payload: safe_params, headers: safe_headers)
 
-    SubmissionPostedJob.perform_later submission.id
+    SubmissionPostedJob.perform_later submission
 
     if form.redirect_url?
       redirect_to form.redirect_url
