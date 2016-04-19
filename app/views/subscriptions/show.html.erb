@@ -18,7 +18,11 @@
             <% if @plans.include?(plan) %>
               <% if @cards.count.zero? %>
                 <% if @plan == plan %>
-                  <%= link_to "Pay Now", new_account_card_path(plan: plan.name) %>
+                  <% if @subscription.try(:comped?) %>
+                    <span class="plan-current">Your Plan *</span>
+                  <% else %>
+                    <%= link_to "Pay Now", new_account_card_path(plan: plan.name) %>
+                  <% end %>
                 <% elsif @plan %>
                   <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_card_path(plan: plan.name) %>
                 <% else %>
@@ -43,7 +47,7 @@
   </table>
   <% if @subscription %>
     <% if @subscription.comped? %>
-      <p>You have been bestowed with a <strong>free subscription</strong>. Nice!</p>
+      <p>* You have been bestowed with a <strong>free subscription</strong>. Nice!</p>
     <% elsif @subscription.trial? %>
       <p>Your trial will end on <%= local_date @subscription.period_end %>.</p>
     <% else %>

@@ -77,7 +77,7 @@
         <span class="home-pricing-text-header-simple">Simple</span>
         <span class="home-pricing-text-header-pricing">Pricing.</span>
       </h2>
-      <p class="home-pricing-text-body">Begin with a 30 day free trial without paying a dime. Afterward, pricing starts at $5 per month for one form. If you happen to be a student or teacher with a .edu email address, <%= link_to "contact us", contact_path %> to get a free 10 Forms plan, because you guys are awesome.</p>
+      <p class="home-pricing-text-body">Begin with a 30 day free trial without paying a dime. Afterward, pricing starts at $5 per month for one form. If you happen to be a student or teacher with a .edu email address, <%= link_to "contact us", contact_path %> to get a free one form plan, because you guys are awesome.</p>
     </div>
     <table class="home-pricing-table">
       <thead>
@@ -94,7 +94,7 @@
             <td><%= plan.description %></td>
             <td><%= number_to_currency(plan.price, precision: 0) %> / month</td>
             <td><%= plan.form_quota %></td>
-            <td><%= link_to "Choose Plan", sign_up_path(plan: plan.name) %></td>
+            <td><%= link_to "Begin Free Trial", sign_up_path(plan: plan.name) %></td>
           </tr>
         <% end %>
       </tbody>
