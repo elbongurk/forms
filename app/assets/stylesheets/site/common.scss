@@ -1,4 +1,4 @@
-[role="container"] {
+[role="container"], [role="main"] {
   @include clearfix;
   max-width: $max-width;
   margin: 0 auto;
@@ -63,7 +63,7 @@ body {
 }
 
 .panel header h2, .panel-wrapper header h2 {
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 
 .panel-tools {
@@ -114,8 +114,8 @@ header[role="banner"] {
   margin-bottom: 20px;
   border-bottom: 1px solid #ddd;
   h1 {
-    line-height: 40px;
-    margin: 0;
+    text-transform: uppercase;
+    margin: 14px 0 0;
     float: left;
     a {
       color: #464646;
@@ -129,11 +129,21 @@ header[role="banner"] {
     ul li {
       line-height: 40px;
       display: inline-block;
-      margin-left: 8px;
+      margin-left: 16px;
       a {
         color: #888;
         &:hover {
           color: $dark-gray;
+        }
+      }
+      a.call-to-action {
+        border: 2px solid #E5E5E5;
+        padding: 4px 12px;
+        border-radius: 3px;
+        &:hover {
+          border-color: #FD133C;
+          background: #FD133C;
+          color: #fff;
         }
       }
     }
@@ -172,7 +182,7 @@ dl {
 }
 
 pre input[type="text"] {
-  width: 360px;
+  width: 420px;
   display: inline;
   border-color: $action-color;
   border-width: 3px;

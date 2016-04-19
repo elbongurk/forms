@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'thanks', to: 'pages#thanks', as: 'thanks'
+  get 'contact', to: 'pages#contact', as: 'contact'
+  get 'privacy', to: 'pages#privacy', as: 'privacy'
+  get 'legal', to: 'pages#legal', as: 'legal'
 
   resources :sessions, only: :create
   resources :users, only: :create
@@ -15,13 +18,17 @@ Rails.application.routes.draw do
     resources :charges, only: :index
   end
 
-  resources :forms, path: '/' do
+  resources :forms, path: '/', except: :index do
     resources :submissions, only: [:index, :show, :destroy]
   end
 
   post 'f/:form_uid', to: 'submissions#create', as: 'submissions'
 
-  root to: 'forms#index'
+  constraints SignedInConstraint.new do
+    resources :forms, path: '/', only: :index
+  end
+
+  root to: 'pages#home'
   # Serve websocket cable requests in-process
   # mount ActionCable.server => '/cable'
 end

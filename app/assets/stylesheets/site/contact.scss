@@ -1,0 +1,50 @@
+.contact-hero {
+  border-bottom: 1px solid #ddd;
+}
+
+.contact-hero-text {
+  text-transform: uppercase;
+  font-size: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.contact-hero-text-back {
+  display: block;
+  color: #B9C2C4;
+}
+
+.contact-form {
+  background: #fff;
+  padding-top: 60px;
+  padding-bottom: 80px;
+
+  form {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+
+  input[type="text"], input[type="email"], textarea {
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 13px;
+    border: none;
+    border-bottom: 2px solid #e5e5e5;
+    outline: none;
+    padding: 15px 0;
+    font-size: 21px;
+    @include transition(border-color 200ms linear);
+    &:focus {
+      border-color: #ff0a35;
+    }
+  }
+  textarea {
+    height: 200px;
+    overflow: hidden;
+  }
+  input[type="submit"] {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 40px;
+  }
+}

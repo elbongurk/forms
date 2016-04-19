@@ -1,4 +1,9 @@
 @import "bourbon";
+@import "base/fonts";
 @import "base/base";
-
 @import "site/common";
+
+@import "site/pages";
+@import "site/home";
+@import "site/contact";
+@import "site/legal";

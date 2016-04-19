@@ -1,0 +1,5 @@
+@include font-face("league-spartan", "league-spartan/league-spartan-bold", bold, normal, $asset-pipeline: true);
+@include font-face("lato", "lato/lato-regular", normal, normal, $asset-pipeline: true, $file-formats: eot woff ttf);
+@include font-face("lato", "lato/lato-regular-italic", normal, italic, $asset-pipeline: true, $file-formats: eot woff ttf);
+@include font-face("lato", "lato/lato-bold", bold, normal, $asset-pipeline: true, $file-formats: eot woff ttf);
+@include font-face("lato", "lato/lato-bold-italic", bold, italic, $asset-pipeline: true, $file-formats: eot woff ttf);

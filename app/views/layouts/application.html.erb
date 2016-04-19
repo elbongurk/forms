@@ -13,7 +13,7 @@
     <%= render 'javascript' %>
   </head>
 
-  <body>
+  <body class="<%= body_class %>">
     <header role="banner">
       <div role="container">
         <h1><%= link_to "Elbongurk Forms", root_path %></h1>
@@ -23,15 +23,16 @@
               <li><%= link_to "Account", edit_account_path %></li>
               <li><%= link_to "Sign out", sign_out_path, method: :delete %></li>
             <% else %>
+              <li><%= link_to "Contact Us", contact_path %></li>
               <li><%= link_to "Sign in", sign_in_path %></li>
-              <li><%= link_to "Sign up", sign_up_path %></li>
+              <li><%= link_to "Sign up", sign_up_path, class: "call-to-action" %></li>
             <% end %>
           </ul>
         </nav>
       </div>
     </header>
     <%= render 'flashes' %>
-    <div role="container">
+    <div role="main">
       <%= yield %>
     </div>
   </body>

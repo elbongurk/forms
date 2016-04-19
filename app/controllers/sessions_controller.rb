@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     @session = Session.new(session_params)
     if user = @session.authenticate
       sign_in user
-      flash[:success] = "Welcome back #{user.email}"
       redirect_back_or root_url
     else
       render action: :new, status: :unauthorized
@@ -19,7 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     sign_out
-    flash[:success] = "You've been successfully signed out"
     redirect_to sign_in_url
   end
   

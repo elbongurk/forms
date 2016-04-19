@@ -1,0 +1,104 @@
+<section class="home-hero">
+  <div role="container">
+    <h2 class="home-hero-text">
+      <span class="home-hero-text-you">You</span>
+      <span class="home-hero-text-worry">worry about the</span>
+      <span class="home-hero-text-html">HTML &amp; CSS.</span>
+      <span class="home-hero-text-let">Let</span>
+      <span class="home-hero-text-us">us</span>
+      <span class="home-hero-text-take">take care of</span>
+      <span class="home-hero-text-rest">the rest.</span>
+    </h2>    
+    <figure class="home-hero-figure">
+      <%= image_tag "hero.png" %>
+    </figure>
+  </div>
+</section>
+<section class="home-explain">
+  <div role="container">
+    <figure class="home-explain-figure">
+      <%= image_tag "hero.png" %>
+    </figure>
+    <div class="home-explain-text">
+      <h2 class="home-explain-text-header">
+        <span class="home-explain-text-header-forms">Forms for the</span>
+        <span class="home-explain-text-header-rest">rest</span>
+        <span class="home-explain-text-header-us">of us.</span>
+      </h2>
+      <p class="home-explain-text-body">Use regular old HTML &amp; CSS to build your form. No special iframes or JavaScript plugins are needed. Style using your own stylesheet just like any other element on your page.</p>
+    </div>
+  </div>
+</section>
+<section id="features" class="home-features">
+  <div role="container">
+    <div class="home-features-item">
+      <figure class="home-features-item-figure">
+        <%= image_tag "feature-html.png" %>
+      </figure>
+      <div class="home-features-item-text">
+        <h2>Simple Integration</h2>
+        <p>No backend or database experience necessary. All you need to do is code the HTML &amp; CSS and paste in our action url.</p>
+      </div>
+    </div>
+    <div class="home-features-item">
+      <figure class="home-features-item-figure">
+        <%= image_tag "feature-css.png" %>
+      </figure>
+      <div class="home-features-item-text">
+        <h2>Full Style Control</h2>
+        <p>You style your own code for seamless design. No outside branding or advertising will get in your way.</p>
+      </div>
+    </div>
+    <div class="home-features-item">
+      <figure class="home-features-item-figure">
+        <%= image_tag "feature-spam.png" %>
+      </figure>
+      <div class="home-features-item-text">
+        <h2>Safe &amp; Simple Web Interface</h2>
+        <p>As simple and easy as checking your email. We keep all your incoming messages safe, organized, and easily accessible.</p>
+      </div>
+    </div>
+    <div class="home-features-item">
+      <figure class="home-features-item-figure">
+        <%= image_tag "feature-email.png" %>
+      </figure>
+      <div class="home-features-item-text">
+        <h2>Spam Blocking</h2>
+        <p>We have a built-in spam filter to block out unwanted solicitation. Get only the messages meant for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="pricing" class="home-pricing">
+  <div role="container">
+    <div class="home-pricing-text">
+      <h2 class="home-pricing-text-header">
+        <span class="home-pricing-text-header-super">Super</span>
+        <span class="home-pricing-text-header-simple">Simple</span>
+        <span class="home-pricing-text-header-pricing">Pricing.</span>
+      </h2>
+      <p class="home-pricing-text-body">Begin with a 30 day free trial without paying a dime. Afterward, pricing starts at $5 per month for one form. If you happen to be a student or teacher with a .edu email address, <%= link_to "contact us", contact_path %> to get a free 10 Forms plan, because you guys are awesome.</p>
+    </div>
+    <table class="home-pricing-table">
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Price</th>
+          <th>Forms</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Plan.unarchived.order(:sort).each do |plan| %>
+          <tr class="<%= plan.default? ? "plan plan-default" : "plan" %>">
+            <td><%= plan.description %></td>
+            <td><%= number_to_currency(plan.price, precision: 0) %> / month</td>
+            <td><%= plan.form_quota %></td>
+            <td><%= link_to "Choose Plan", sign_up_path(plan: plan.name) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
+<%= render 'footer' %>
