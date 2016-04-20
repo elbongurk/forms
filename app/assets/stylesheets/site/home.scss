@@ -4,43 +4,60 @@
   margin-top: 0;
 }
 
+.pages-home [role="main"] {
+  @media (min-width: $medium-screen) {
+    font-size: 18px;
+  }
+}
+
 /* HERO */
 
 .home-hero {
   overflow: hidden;
+  @include clearfix;
 }
 
-.home-hero-text {  
-  font-size: 40px;
-  font-size: 3vw;
-  width: 50%;
+.home-hero-text {
   float: left;
-  padding-top: 150px;
-  padding-bottom: 150px;
-  @media (min-width: $max-width) {
+  font-size: 22px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  @media (min-width: $medium-screen) {
+    font-size: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  @media (min-width: $large-screen) {
     font-size: 40px;
+    padding-top: 150px;
+    padding-bottom: 150px;
   }
 }
 
 .home-hero-figure {
-  width: 50%;
-  float: left;
-  position: relative;
-  margin: 0;
+  display: none;
+  @media (min-width: $medium-screen) {
+    display: block;
+    float: left;
+    margin: 0;
+    position: relative;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-width: none;
+    }
+  }
 }
 
-.home-hero-figure img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: none;
-}
-
-.home-hero-text-html, .home-hero-text-rest {
+.home-hero-text-html,
+.home-hero-text-rest {
   display: block;
 }
 
-.home-hero-text-worry, .home-hero-text-let, .home-hero-text-take {
+.home-hero-text-worry,
+.home-hero-text-let,
+.home-hero-text-take {
   color: #B9C2C4;
 }
 
@@ -50,6 +67,7 @@
   background: #323333;
   color: #fff;
   overflow: hidden;
+  @include clearfix;
 }
 
 .home-explain-figure {
@@ -69,29 +87,36 @@
 .home-explain-text {
   float: right;
   width: 50%;
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  @media (min-width: $medium-screen) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  @media (min-width: $large-screen) {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
 }
 
 .home-explain-text-header {
-  font-size: 36px;
-  font-size: 2.8vw;
-  margin-bottom: 10px;
-  @media (min-width: $max-width) {
+  @media (min-width: $medium-screen) {
+    font-size: 26px;
+  }
+  @media (min-width: $large-screen) {
     font-size: 36px;
   }
 }
 
-.home-explain-text-header-forms, .home-explain-text-header-us {
-  color: #979EA0;
-}
-
 .home-explain-text-header-forms {
-  display: block;
+  @media (min-width: $medium-screen) {
+    display: block;
+  }
 }
 
-.home-explain-text-body {
-  font-size: 18px;
+.home-explain-text-header-forms,
+.home-explain-text-header-us {
+  color: #979EA0;
 }
 
 /* FEATURES */
@@ -109,6 +134,10 @@
   border-bottom: 1px solid #DCE0E1;
   padding-top: 40px;
   padding-bottom: 40px;
+  text-align: center;
+  @media (min-width: $medium-screen) {
+    text-align: left;
+  }
 }
 
 .home-features .home-features-item:last-child {
@@ -116,25 +145,30 @@
 }
 
 .home-features-item-figure {
-  float: left;
   width: 100px;
   height: 100px;
-  margin: 0;
+  margin: 0 auto;
   img {
     border-radius: 50px;
+  }
+  @media (min-width: $medium-screen) {
+    float: left;
+    margin: 0;    
   }
 }
 
 .home-features-item-text {
-  margin-left: 125px;
-  h2 {
-    font-size: 18px;
-    margin-bottom: 0;
+  @media (min-width: $medium-screen) {
+    margin-left: 125px;
+  }
+}
+
+.home-features-item-text-header {
+  margin-bottom: 0;
+  margin-top: 20px;
+  @media (min-width: $medium-screen) {
     margin-top: 10px;
-  }
-  p {
-    font-size: 18px;
-  }
+  }  
 }
 
 /* PRICING */
@@ -146,9 +180,9 @@
   a {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: underline;
-  }
-  a:hover {
-    color: #fff;
+    &:hover {
+      color: #fff;
+    }
   }
 }
 
@@ -176,7 +210,6 @@
 
 .home-pricing-text-body {
   color: #fff;
-  font-size: 18px;
 }
 
 .home-pricing-table {
