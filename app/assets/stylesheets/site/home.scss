@@ -1,9 +1,10 @@
+/* HERO */
+
 .home-hero {
   overflow: hidden;
 }
 
 .home-hero-text {  
-  text-transform: uppercase;
   font-size: 40px;
   font-size: 3vw;
   width: 50%;
@@ -37,6 +38,8 @@
   color: #B9C2C4;
 }
 
+/* EXPLAIN */
+
 .home-explain {
   background: #323333;
   color: #fff;
@@ -65,7 +68,6 @@
 }
 
 .home-explain-text-header {
-  text-transform: uppercase;
   font-size: 36px;
   font-size: 2.8vw;
   margin-bottom: 10px;
@@ -85,6 +87,8 @@
 .home-explain-text-body {
   font-size: 18px;
 }
+
+/* FEATURES */
 
 .home-features {
   background: #fff;
@@ -119,7 +123,6 @@
   margin-left: 125px;
   h2 {
     font-size: 18px;
-    text-transform: uppercase;
     margin-bottom: 0;
     margin-top: 10px;
   }
@@ -127,6 +130,8 @@
     font-size: 18px;
   }
 }
+
+/* PRICING */
 
 .home-pricing {
   background: #FD133C;
@@ -147,7 +152,6 @@
 }
 
 .home-pricing-text-header {
-  text-transform: uppercase;
   font-size: 40px;
   text-align: center;
 }
