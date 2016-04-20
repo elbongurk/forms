@@ -1,3 +1,11 @@
+/* OVERRIDES */
+
+.pages-contact footer[role="contentinfo"] {
+  margin-top: 0;
+}
+
+/* HERO */
+
 .contact-hero {
   border-bottom: 1px solid #ddd;
 }
@@ -13,6 +21,8 @@
   display: block;
   color: #B9C2C4;
 }
+
+/* FORM */
 
 .contact-form {
   background: #fff;

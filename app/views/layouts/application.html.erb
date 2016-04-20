@@ -35,5 +35,18 @@
     <div role="main">
       <%= yield %>
     </div>
+    <footer role="contentinfo">
+      <div role="container">
+        <span>
+          &copy; 2016 <a href="http://elbongurk.com">Elbongurk LLC</a>
+        </span>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Contact Us", contact_path %></li>
+          <li><%= link_to "Privacy Policy", privacy_path %></li>
+          <li><%= link_to "Legal", legal_path %></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>

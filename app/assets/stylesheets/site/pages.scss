@@ -1,41 +1,7 @@
+/* OVERRIDES */
+
 .pages [role="main"] {
   max-width: none;
   margin: 0;
   padding: 0;
-}
-
-.pages-footer {
-  background: #222424;
-  color: #717172;
-  font-size: 13px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  a {
-    color: #717172;
-  }
-  a:hover {
-    color: #717172;
-    text-decoration: underline;
-  }
-}
-
-.pages-footer-copyright {
-  float: right;
-}
-
-@media (min-width: $medium-screen) {
-  .pages-footer-links li {
-    display: inline-block;
-  }
-
-  .pages-footer-links li:after {
-    content: "\2022";
-    color: darken(#717172, 10%);
-    margin-left: 6px;
-    margin-right: 3px;
-  }
-
-  .pages-footer-links li:last-child:after {
-    content: "";
-  }
 }
