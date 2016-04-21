@@ -2,7 +2,7 @@ class Form < ApplicationRecord
   before_create :assign_uid
   
   belongs_to :user
-  has_many :submissions
+  has_many :submissions, dependent: :destroy
 
   validates :name, presence: true
 
