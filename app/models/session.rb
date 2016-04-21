@@ -8,7 +8,7 @@ class Session
   
   def authenticate
     if valid?
-      if user = User.where(email: email).take
+      if user = User.find_by_normalized_email(email)
         if user.authenticate(password)
           return user
         else

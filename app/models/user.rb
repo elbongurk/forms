@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   before_update :clear_password_reset
+  before_validation :normalize_email
   
   has_secure_password
   has_many :forms
@@ -17,6 +18,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, email: true
   validates :password_reset_token, uniqueness: true, allow_blank: true
 
+  def self.find_by_normalized_email(email)
+    where(email: normalize_email(email)).take
+  end
+  
   def form_quota_met?
     self.forms.count >= self.plan.form_quota
   end
@@ -58,10 +63,18 @@ class User < ApplicationRecord
   
   private
 
+  def self.normalize_email(email)
+    email.to_s.downcase.gsub(/\s+/, "")
+  end
+
   def clear_password_reset
     if self.password_digest_changed?
       self.password_reset_token = nil
       self.password_reset_requested_at = nil
     end
+  end
+
+  def normalize_email
+    self.email = self.class.normalize_email(email)
   end
 end
