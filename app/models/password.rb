@@ -17,7 +17,7 @@ class Password
   
   def request
     if valid?
-      user = User.where(email: email).take
+      user = User.find_by_normalized_email(email)
       if user && user.set_password_reset_request
         return user
       else
