@@ -19,20 +19,39 @@
 
 .home-hero-text {
   float: left;
-  font-size: 22px;
   padding-top: 20px;
   padding-bottom: 20px;
   @media (min-width: $medium-screen) {
-    font-size: 30px;
     padding-top: 40px;
     padding-bottom: 40px;
   }
   @media (min-width: $large-screen) {
-    font-size: 40px;
-    padding-top: 150px;
-    padding-bottom: 150px;
+    padding-top: 120px;
+    padding-bottom: 120px;
   }
 }
+
+.home-hero-text-header {
+  font-size: 22px;
+  @media (min-width: $medium-screen) {
+    font-size: 30px;
+  }
+  @media (min-width: $large-screen) {
+    font-size: 40px;
+  }
+}
+
+.home-hero-text-header-html,
+.home-hero-text-header-rest {
+  display: block;
+}
+
+.home-hero-text-header-worry,
+.home-hero-text-header-let,
+.home-hero-text-header-take {
+  color: #B9C2C4;
+}
+
 
 .home-hero-figure {
   display: none;
@@ -67,17 +86,6 @@
   height: 565px;
 }
 
-
-.home-hero-text-html,
-.home-hero-text-rest {
-  display: block;
-}
-
-.home-hero-text-worry,
-.home-hero-text-let,
-.home-hero-text-take {
-  color: #B9C2C4;
-}
 
 /* EXPLAIN */
 
