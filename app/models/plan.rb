@@ -19,7 +19,7 @@ class Plan < ApplicationRecord
 
   def duration_for_status(status)
     case status
-    when :trail
+    when :trial
       self.trial_period_days.days
     else
       1.month
