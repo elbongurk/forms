@@ -12,7 +12,7 @@
       <% Plan.unarchived.order(sort: :desc).each do |plan| %>
         <tr>
           <td><%= plan.description %></td>
-          <td><%= number_to_currency(plan.price, precision: 0) %>/month</td>
+          <td><%= number_to_currency(plan.price, precision: 0) %> / month</td>
           <td><%= plan.form_quota %></td>
           <td>
             <% if @plans.include?(plan) %>
