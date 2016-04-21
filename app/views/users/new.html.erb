@@ -1,18 +1,28 @@
-<div class="panel-small">
+<div class="panel-small panel-small-double-wide">
   <div class="panel-body">
-    <h2>Sign up</h2>
-    <%= form_for @user do |form| %>
-      <%= form.errors %>
-      <%= form.field_for :email do |email| %>
-        <%= email.label %>
-        <%= email.email_field %>
+    <div class="panel-body-left">
+      <h2>Sign up</h2>
+      <%= form_for @user do |form| %>
+        <%= hidden_field_tag :plan, @plan.name %>
+        <%= form.errors %>
+        <%= form.field_for :email do |email| %>
+          <%= email.label %>
+          <%= email.email_field %>
+        <% end %>
+        <%= form.field_for :password do |password| %>
+          <%= password.label %>
+          <%= password.password_field %>
+        <% end %>
+        <p><%= form.submit "Sign up" %></p>
       <% end %>
-      <%= form.field_for :password do |password| %>
-        <%= password.label %>
-        <%= password.password_field %>
-      <% end %>
-      <p><%= form.submit "Sign up" %></p>
-    <% end %>
+    </div>
+    <div class="panel-body-right">
+      <h2><%= @plan.description %> Plan</h2>
+      <p class="panel-body-right-note">Start Your <%= @plan.trial_period_days %>-Day Free Trial</p>
+      <p class="panel-body-right-subnote">Change or cancel anytime</p>
+      <p class="panel-body-right-highlight"><%= number_to_currency(@plan.price, precision: 0) %> / month for up to <%= pluralize(@plan.form_quota, 'form') %>.</p>
+      <p>Looking for a <%= link_to "different plan", root_path(anchor: :pricing) %>?</p>
+    </div>
   </div>
   <footer>
     <p>Already have an account? <%= link_to "Sign in", sign_in_path %>.</p>

@@ -5,6 +5,14 @@ class Plan < ApplicationRecord
   has_many :subscriptions
   has_many :users, through: :subscriptions
 
+  def self.find_by_name_or_default(name)
+    if plan = where(name: name).take
+      plan
+    else
+      where(default: true).take
+    end
+  end
+  
   def price_in_cents
     self.price * 100
   end

@@ -18,12 +18,14 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
+    @plan = Plan.unarchived.find_by_name_or_default(params[:plan])
   end
 
   def create
     @user = User.new(create_params)
+    @plan = Plan.unarchived.find_by_name_or_default(params[:plan])
     if @user.save
-      @user.subscriptions.create_trial_for_plan(Plan.unarchived.default.take)
+      @user.subscriptions.create_trial_for_plan(@plan)
       sign_in @user
       redirect_to root_url
     else

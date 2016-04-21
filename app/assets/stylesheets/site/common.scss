@@ -191,6 +191,57 @@ footer[role="contentinfo"] {
   }
 }
 
+.panel-small-double-wide {
+  max-width: 760px;
+  .panel-body {
+    padding: 0;
+    @include clearfix;
+  }
+  .panel-body-left, .panel-body-right {
+    padding: 30px;
+    @media (min-width: $medium-screen) {
+      float: left;
+      width: 50%;
+    }
+  }
+  .panel-body-right {
+    background: #FD133C;
+    color: #fff;
+    a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: underline;
+      &:hover {
+        color: #fff;
+      }
+    }
+    border-radius: 0 0 6px 6px;
+    @media (min-width: $medium-screen) {
+      border-radius: 0 6px 6px 0;
+      height: 320px;
+    }
+  }
+  .panel-body-right-note {
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 20px;
+    @media (min-width: $medium-screen) {
+      margin-top: 40px;
+    }
+  }
+  .panel-body-right-subnote {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 18px;
+    @media (min-width: $medium-screen) {
+      margin-bottom: 38px;
+    }
+  }
+  .panel-body-right-highlight {
+    background: darken(#FD133C, 10%);
+    border: 2px solid darken(#FD133C, 20%);
+    padding: 0.75em;
+  }  
+}
+
 /* TABLES */
 
 table {
