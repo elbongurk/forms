@@ -168,7 +168,7 @@ footer[role="contentinfo"] {
 }
 
 .panel-small {
-  margin: 40px auto 0;
+  margin: 0 auto;
   max-width: 380px;
   .panel-body {
     box-shadow: 0 1px 3px 0 #bfbfbf;
@@ -188,6 +188,9 @@ footer[role="contentinfo"] {
   footer {
     margin-top: 16px;
     text-align: center;
+  }
+  @media (min-width: $medium-screen) {
+    margin-top: 40px;
   }
 }
 
