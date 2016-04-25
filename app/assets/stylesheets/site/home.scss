@@ -18,10 +18,12 @@
 }
 
 .home-hero-text {
-  float: left;
   padding-top: 20px;
   padding-bottom: 20px;
+  text-align: center;
   @media (min-width: $medium-screen) {
+    float: left;
+    text-align: left;
     padding-top: 40px;
     padding-bottom: 40px;
   }
@@ -32,7 +34,7 @@
 }
 
 .home-hero-text-header {
-  font-size: 22px;
+  font-size: 34px;
   @media (min-width: $medium-screen) {
     font-size: 30px;
   }
@@ -43,15 +45,31 @@
 
 .home-hero-text-header-html,
 .home-hero-text-header-rest {
+  display: block;  
+}
+
+.home-hero-text-header-about,
+.home-hero-text-header-care {
   display: block;
+  @media (min-width: $medium-screen) {
+    display: inline;
+  }
 }
 
 .home-hero-text-header-worry,
+.home-hero-text-header-about,
 .home-hero-text-header-let,
-.home-hero-text-header-take {
+.home-hero-text-header-take,
+.home-hero-text-header-care {
   color: #B9C2C4;
 }
 
+.home-hero-text-body .button {
+  padding: $small-spacing * 1.333333 $base-spacing * 1.333333;
+  @media (min-width: $medium-screen) {
+    padding: $small-spacing $base-spacing;
+  }
+}
 
 .home-hero-figure {
   display: none;
