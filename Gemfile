@@ -20,6 +20,7 @@ gem 'bitters'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'stripe'
+gem 'airbrake'
 
 group :development, :test do
   gem 'byebug'
