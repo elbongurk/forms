@@ -110,6 +110,18 @@ namespace :setup do
     end
   end
 
+  desc 'Restarts services if running'
+  task :restart do
+    on roles(:app) do |host|
+      if test("status puma app=#{current_path}")
+        execute :restart, "puma app=#{current_path}"
+      end
+      if test("status que app=#{current_path}")
+        execute :restart, "que app=#{current_path}"
+      end
+    end
+  end
+
   desc "Prep setup for run"
   task cold: %w(apt sys reboot)
 end
@@ -125,27 +137,13 @@ task setup: [ 'setup:binaries',
               'setup:ssh' ]
 
 namespace :deploy do
-  task :set_linked_dirs do
-    set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/sockets', 'tmp/pids', 'tmp/cache')
-  end
-
-  desc 'Restarts services if running'
-  task :restart do
-    on roles(:app) do |host|
-      if test("status puma app=#{current_path}")
-        execute :restart, "puma app=#{current_path}"
-      end
-      if test("status que app=#{current_path}")
-        execute :restart, "que app=#{current_path}"
-      end
-    end
-  end
-
-  after 'deploy:finished', 'deploy:restart'
+  after 'deploy:finished', 'setup:restart'
 end
 
-Capistrano::DSL.stages.each do |stage|
-  after stage, 'deploy:set_linked_dirs'
+namespace :load do
+  task :defaults do
+    set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/sockets', 'tmp/pids', 'tmp/cache')
+  end
 end
 
 def template(from, to, options = {})
