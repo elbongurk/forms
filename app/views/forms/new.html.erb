@@ -1,4 +1,4 @@
-<%= panels_for [:root, "Create Form"] do %>
+<%= panels_for [:root, "Add Form"] do %>
   <%= form_for @form do |form| %>
     <%= form.errors %>
     <%= form.field_for :name do |name| %>
@@ -12,7 +12,7 @@
     <%= form.field_for :email do |email| %>
       <label class="checkbox"><%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions</label>
     <% end %>
-    <p><%= form.submit "Create Form" %> or <%= link_to "Cancel", forms_path %></p>
+    <p><%= form.submit "Add Form" %> or <%= link_to "Cancel", forms_path %></p>
   <% end %>
 <% end %>
 

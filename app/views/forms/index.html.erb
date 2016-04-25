@@ -10,13 +10,21 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @forms %>
+      <% if @forms.present? %>
+        <%= render @forms %>
+      <% else %>
+        <tr>
+          <td class="empty" colspan="6">
+            <%= link_to "Add a form", new_form_path %> to see it listed here.
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   <% if @user.form_quota_met?  %>
     <p>You will need to upgrade your subscription in order to create more forms.</p>
     <p><%= link_to "Upgrade Subscription", account_subscription_path, class: :button %></p>
   <% else %>
-    <p><%= link_to "New Form", new_form_path, class: :button %></p>
+    <p><%= link_to "Add Form", new_form_path, class: :button %></p>
   <% end %>
 <% end %>

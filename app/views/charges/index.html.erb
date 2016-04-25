@@ -11,7 +11,15 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @charges %>
+      <% if @charges.present? %>
+        <%= render @charges %>
+      <% else %>
+        <tr>
+          <td class="empty" colspan="6">
+            No payment history on file.
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 <% end %>

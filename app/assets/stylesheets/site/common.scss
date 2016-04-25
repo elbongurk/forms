@@ -252,6 +252,11 @@ table {
     background-color: pink;
     cursor: pointer
   }
+  td.empty {
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
 }
 
 /* DEFINITION LISTS */

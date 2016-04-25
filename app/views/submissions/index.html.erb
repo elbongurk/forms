@@ -8,8 +8,14 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @submissions %>
-      <% @submissions.each do |submission| %>
+      <% if @submissions.present? %>
+        <%= render @submissions %>
+      <% else %>
+        <tr>
+          <td class="empty" colspan="6">
+            <%= link_to "Setup form code", form_path(@form) %> to receive submissions
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

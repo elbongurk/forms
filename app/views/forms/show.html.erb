@@ -18,7 +18,15 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @submissions %>
+      <% if @submissions.present? %>
+        <%= render @submissions %>
+      <% else %>
+        <tr>
+          <td class="empty" colspan="6">
+            Setup form code to receive submissions
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   <p><%= link_to "View All", form_submissions_path(@form), class: :button %></p>
