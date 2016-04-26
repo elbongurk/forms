@@ -7,5 +7,5 @@
       <span class="card-default">Default</span>
     <% end %>
   </td>
-  <td><%= link_to "Destroy", account_card_path(card), method: :delete, data: { confirm: "Are you are you want to delete this card?" } %></td>
+  <td><%= link_to embedded_svg("trashcan.svg"), account_card_path(card), method: :delete, data: { confirm: "Are you are you want to delete this card?" } %></td>
 </tr>

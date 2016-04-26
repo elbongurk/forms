@@ -3,6 +3,6 @@
   <td><%= form.name %></td>
   <td><%= form.submissions.where(spam: false).size %></td>
   <td><%= local_time(form.updated_at) %></td>
-  <td><%= link_to "Edit", edit_form_path(form) %></td>
-  <td><%= link_to "Destroy", form_path(form), method: :delete, data: { confirm: "Are you sure you want to delete this form?" } %></td>
+  <td><%= link_to embedded_svg("pencil.svg"), edit_form_path(form) %></td>
+  <td><%= link_to embedded_svg("trashcan.svg"), form_path(form), method: :delete, data: { confirm: "Are you sure you want to delete this form?" } %></td>
 </tr>

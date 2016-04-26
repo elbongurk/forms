@@ -248,9 +248,12 @@ footer[role="contentinfo"] {
 /* TABLES */
 
 table {
-  tbody tr[data-url]:hover {
-    background-color: pink;
-    cursor: pointer
+  tbody tr[data-url] {
+    transition: background-color $base-duration $base-timing;
+    &:hover {
+      background-color: lighten(#FD133C, 40%);
+      cursor: pointer;    
+    }
   }
   td.empty {
     text-align: center;

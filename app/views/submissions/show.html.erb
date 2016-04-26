@@ -5,5 +5,5 @@
       <dd><%= value %></dd>
     <% end %>
   </dl>
-  <p><%= link_to "Destroy", form_submission_path(@form, @submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" }, class: :button %></p>
+  <p><%= link_to "Delete", form_submission_path(@form, @submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" }, class: :button %></p>
 <% end %>
