@@ -49,7 +49,7 @@ class Submission < ApplicationRecord
   end
   
   def check!
-    akismet = URI.parse("http://#{ENV['AKISMET_API_KEY']}.rest.akismet.com/1.1/comment-check")
+    akismet = URI.parse("https://#{ENV['AKISMET_API_KEY']}.rest.akismet.com/1.1/comment-check")
     request_headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
     request_params = {}
     request_params['blog'] = ENV['AKISMET_API_HOST'];
@@ -57,7 +57,8 @@ class Submission < ApplicationRecord
     request_params['user_agent'] = self.user_agent
     request_params['referrer'] = self.referrer if self.referrer.present?
     request_params.merge!(self.headers)
-    response = Net::HTTP.start(akismet.host) do |http|
+
+    response = Net::HTTP.start(akismet.host, akismet.port) do |http|
       http.post(akismet.path, request_params.map { |k,v| "#{k}=#{CGI.escape(v)}" }.join('&'))      
     end
     self.update!(spam: response.body == 'true')
