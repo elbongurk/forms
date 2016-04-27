@@ -24,13 +24,15 @@ p {
 
 a {
   color: $action-color;
+  fill: $medium-gray;
   text-decoration: none;
-  transition: color $base-duration $base-timing;
+  transition: color $base-duration $base-timing, fill $base-duration $base-timing;
 
   &:active,
   &:focus,
   &:hover {
     color: shade($action-color, 25%);
+    fill: shade($action-color, 25%);
   }
 }
 
