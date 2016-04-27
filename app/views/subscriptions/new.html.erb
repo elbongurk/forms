@@ -1,23 +1,38 @@
-<%= panels_for [@user, @subscription, 'Confirm Change'] do %>
-  <%= form_for @subscription, url: account_subscription_path do |form| %>
-    <%= hidden_field_tag :plan, @plan.name %>
-    <p>You are about to change to the <%= @plan.description %> Plan. You will be billed <strong><%= number_to_currency(@plan.price) %></strong> on <strong><%= local_date(@subscription.billable_on) %></strong>.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Duration</th>
-          <th>Plan</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= local_date(@subscription.period_start) %> - <%= local_date(@subscription.period_end) %></td>
-          <td><%= @plan.description %></td>
-          <td><%= number_to_currency(@plan.price) %></td>
-        </tr>
-      </tbody>
-    </table>
-    <%= form.submit "Confirm Change" %>    
-  <% end %>
-<% end %>
+<div class="panel-wrapper" data-children="2">
+  <header>
+    <h2><%= link_to "Account", edit_account_path %></h2>
+  </header>
+  <div class="panel-wrapper" data-children="1">
+    <header>
+      <h2><%= link_to "Subscription", account_subscription_path %></h2>
+    </header>
+    <div class="panel">
+      <header>
+        <h2>Confirm Change</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for @subscription, url: account_subscription_path do |form| %>
+          <%= hidden_field_tag :plan, @plan.name %>
+          <p>You are about to change to the <%= @plan.description %> Plan. You will be billed <strong><%= number_to_currency(@plan.price) %></strong> on <strong><%= local_date(@subscription.billable_on) %></strong>.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Duration</th>
+                <th>Plan</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= local_date(@subscription.period_start) %> - <%= local_date(@subscription.period_end) %></td>
+                <td><%= @plan.description %></td>
+                <td><%= number_to_currency(@plan.price) %></td>
+              </tr>
+            </tbody>
+          </table>
+          <%= form.submit "Confirm Change" %>    
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

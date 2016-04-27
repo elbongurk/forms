@@ -1,23 +1,28 @@
-<%= panel_for @user do %>
-  <div class="panel-tools">
-    <%= link_to "Subscription", account_subscription_path %>
-    <%= link_to "Payment Methods", account_cards_path %>
-    <%= link_to "Payment History", account_charges_path %>
+<div class="panel">
+  <header>
+    <h2>Account</h2>    
+  </header>
+  <div class="panel-body">
+    <div class="panel-tools">
+      <%= link_to "Subscription", account_subscription_path %>
+      <%= link_to "Payment Methods", account_cards_path %>
+      <%= link_to "Payment History", account_charges_path %>
+    </div>
+    <%= form_for @user, url: account_path do |form| %>
+      <%= form.errors %>
+      <%= form.field_for :email do |email| %>
+        <%= email.label "Edit Email" %>
+        <%= email.email_field %>
+      <% end %>
+      <%= form.field_for :password do |password| %>
+        <%= password.label "New Password" %>
+        <%= password.password_field %>
+      <% end %>
+      <%= form.field_for :password_confirmation do |password_confirmation| %>
+        <%= password_confirmation.label "Current Password" %>
+        <%= password_confirmation.password_field %>
+      <% end %>
+      <p><%= form.submit "Update Account" %> or <%= link_to "Cancel", root_path %></p>
+    <% end %>
   </div>
-  <%= form_for @user, url: account_path do |form| %>
-    <%= form.errors %>
-    <%= form.field_for :email do |email| %>
-      <%= email.label "Edit Email" %>
-      <%= email.email_field %>
-    <% end %>
-    <%= form.field_for :password do |password| %>
-      <%= password.label "New Password" %>
-      <%= password.password_field %>
-    <% end %>
-    <%= form.field_for :password_confirmation do |password_confirmation| %>
-      <%= password_confirmation.label "Current Password" %>
-      <%= password_confirmation.password_field %>
-    <% end %>
-    <p><%= form.submit "Update Account" %> or <%= link_to "Cancel", root_path %></p>
-  <% end %>
-<% end %>
+</div>

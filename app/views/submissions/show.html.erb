@@ -1,9 +1,29 @@
-<%= panels_for [:root, @form, @submission] do %>
-  <dl>
-    <% @submission.payload.each do |key, value| %>
-      <dt><%= key %></dt>
-      <dd><%= value %></dd>
-    <% end %>
-  </dl>
-  <p><%= link_to "Delete", form_submission_path(@form, @submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" }, class: :button %></p>
-<% end %>
+<div class="panel-wrapper" data-children="3">
+  <header>
+    <h2><%= link_to "Forms", forms_path %></h2>    
+  </header>
+  <div class="panel-wrapper" data-children="2">
+    <header>
+      <h2><%= link_to @form.name, form_path(@form) %></h2>
+    </header>
+    <div class="panel-wrapper" data-children="1">
+      <header>
+        <h2><%= link_to "Submissions", form_submissions_path(@form) %></h2>        
+      </header>
+      <div class="panel">
+        <header>
+          <h2>Submission</h2>
+        </header>
+        <div class="panel-body">
+          <dl>
+            <% @submission.payload.each do |key, value| %>
+              <dt><%= key %></dt>
+              <dd><%= value %></dd>
+            <% end %>
+          </dl>
+          <p><%= link_to "Delete", form_submission_path(@form, @submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" }, class: :button %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

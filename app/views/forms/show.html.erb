@@ -1,33 +1,43 @@
-<%= panels_for [:root, @form] do %>
-  <h3>Form Code</h3>
-  <p>Here's your custom generated action url. Simply copy it from here and paste it into your own form. Make sure it to put it in the  action attibute as shown in our example below.</p>
-  <code>
-    <pre>
+<div class="panel-wrapper" data-children="1">
+  <header>
+    <h2><%= link_to "Forms", forms_path %></h2>
+  </header>
+  <div class="panel">
+    <header>
+      <h2><%= @form.name %></h2>
+    </header>
+    <div class="panel-body">
+      <h3>Form Code</h3>
+      <p>Here's your custom generated action url. Simply copy it from here and paste it into your own form. Make sure it to put it in the  action attibute as shown in our example below.</p>
+      <code>
+        <pre>
 &lt;form method="POST" action="<input readonly type="text" value="<%= submissions_url(@form.uid) %>">"&gt;
   &lt;!-- Your custom form inputs go here --&gt;
 &lt;/form&gt;
-    </pre>
-  </code>
-  <h3>Recent Submissions</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Created At</th>
-        <th>Preview</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @submissions.present? %>
-        <%= render @submissions %>
-      <% else %>
-        <tr>
-          <td class="empty" colspan="6">
-            Setup form code to receive submissions
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <p><%= link_to "View All", form_submissions_path(@form), class: :button %></p>
-<% end %>
+        </pre>
+      </code>
+      <h3>Recent Submissions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Created At</th>
+            <th>Preview</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @submissions.present? %>
+            <%= render @submissions %>
+          <% else %>
+            <tr>
+              <td class="empty" colspan="6">
+                Setup form code to receive submissions
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p><%= link_to "View All", form_submissions_path(@form), class: :button %></p>
+    </div>
+  </div>
+</div>

@@ -1,23 +1,38 @@
-<%= panels_for [:root, @form, 'Submissions'] do %>
-  <table>
-    <thead>
-      <tr>
-        <th>Created At</th>
-        <th>Preview</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @submissions.present? %>
-        <%= render @submissions %>
-      <% else %>
-        <tr>
-          <td class="empty" colspan="6">
-            <%= link_to "Setup form code", form_path(@form) %> to receive submissions
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <p><%= link_to "Export", form_submissions_path(@form, format: :csv), class: :button %></p>
-<% end %>
+<div class="panel-wrapper" data-children="2">
+  <header>
+    <h2><%= link_to "Forms", forms_path %></h2>
+  </header>
+  <div class="panel-wrapper" data-children="1">
+    <header>
+      <h2><%= link_to @form.name, form_path(@form) %></h2>
+    </header>
+    <div class="panel">
+      <header>
+        <h2>Submissions</h2>
+      </header>
+      <div class="panel-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Created At</th>
+              <th>Preview</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @submissions.present? %>
+              <%= render @submissions %>
+            <% else %>
+              <tr>
+                <td class="empty" colspan="6">
+                  <%= link_to "Setup form code", form_path(@form) %> to receive submissions
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <p><%= link_to "Export", form_submissions_path(@form, format: :csv), class: :button %></p>
+      </div>
+    </div>
+  </div>
+</div>

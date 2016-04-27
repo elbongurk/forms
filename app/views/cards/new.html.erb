@@ -1,21 +1,42 @@
-<%= panels_for [@user, @plan ? Subscription.new : :cards, 'Add Payment Method'] do %>
-  <%= form_for @card, url: account_cards_path do |form| %>
-    <%= hidden_field_tag :plan, @plan.name if @plan %>
-    <%= form.errors render: true %>
-    <div>
-      <label>Card Number</label>
-      <input type="text" size="20" data-stripe="number"/>
+<div class="panel-wrapper" data-children="2">
+  <header>
+    <h2><%= link_to "Account", edit_account_path %></h2>
+  </header>
+  <div class="panel-wrapper" data-children="1">
+    <header>
+      <h2>
+        <% if @plan.present? %>
+          <%= link_to "Subscription", account_subscription_path %>
+        <% else %>
+          <%= link_to "Payment Methods", account_cards_path %>
+        <% end %>
+      </h2>
+    </header>
+    <div class="panel">
+      <header>
+        <h2>Add Payment Method</h2>
+      </header>
+      <div class="panel-body">
+        <%= form_for @card, url: account_cards_path do |form| %>
+          <%= hidden_field_tag :plan, @plan.name if @plan %>
+          <%= form.errors render: true %>
+          <div>
+            <label>Card Number</label>
+            <input type="text" size="20" data-stripe="number"/>
+          </div>
+          <div>
+            <label>CVC</label>
+            <input type="text" size="4" data-stripe="cvc"/>
+          </div>
+          <div>
+            <label>Expiration</label>
+            <input class="input-inline" type="text" size="2" placeholder="MM" data-stripe="exp-month"/>
+            <span> / </span>
+            <input class="input-inline" type="text" size="4" placeholder="YYYY" data-stripe="exp-year"/>
+          </div>
+          <%= form.submit "Add Payment Method" %>
+        <% end %>
+      </div>
     </div>
-    <div>
-      <label>CVC</label>
-      <input type="text" size="4" data-stripe="cvc"/>
-    </div>
-    <div>
-      <label>Expiration</label>
-      <input class="input-inline" type="text" size="2" placeholder="MM" data-stripe="exp-month"/>
-      <span> / </span>
-      <input class="input-inline" type="text" size="4" placeholder="YYYY" data-stripe="exp-year"/>
-    </div>
-    <%= form.submit "Add Payment Method" %>
-  <% end %>
-<% end %>
+  </div>
+</div>

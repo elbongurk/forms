@@ -1,25 +1,35 @@
-<%= panels_for [@user, 'Payment History'] do %>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th>Payment method</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @charges.present? %>
-        <%= render @charges %>
-      <% else %>
-        <tr>
-          <td class="empty" colspan="6">
-            No payment history on file.
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<div class="panel-wrapper" data-children="1">
+  <header>
+    <h2><%= link_to "Account", edit_account_path %></h2>
+  </header>
+  <div class="panel">
+    <header>
+      <h2>Payment History</h2>
+    </header>
+    <div class="panel-body">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Payment method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @charges.present? %>
+            <%= render @charges %>
+          <% else %>
+            <tr>
+              <td class="empty" colspan="6">
+                No payment history on file.
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,24 +1,34 @@
-<%= panels_for [@user, 'Payment Methods'] do %>
-  <table>
-    <thead>
-      <tr>
-        <th>Card</th>
-        <th>Number</th>
-        <th>Expiration</th>
-        <th colspan="2"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @cards.present? %>
-        <%= render @cards %>
-      <% else %>
-        <tr>
-          <td class="empty" colspan="6">
-            <%= link_to "Add a payment method", new_account_card_path %> to see it listed here.
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to "Add Payment Method", new_account_card_path, { class: :button,  } %>
-<% end %>
+<div class="panel-wrapper" data-children="1">
+  <header>
+    <h2><%= link_to "Account", edit_account_path %></h2>
+  </header>
+  <div class="panel">
+    <header>
+      <h2>Payment Methods</h2>
+    </header>
+    <div class="panel-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Card</th>
+            <th>Number</th>
+            <th>Expiration</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @cards.present? %>
+            <%= render @cards %>
+          <% else %>
+            <tr>
+              <td class="empty" colspan="6">
+                <%= link_to "Add a payment method", new_account_card_path %> to see it listed here.
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to "Add Payment Method", new_account_card_path, { class: :button,  } %>
+    </div>
+  </div>
+</div>
