@@ -9,6 +9,9 @@
     <div class="panel">
       <header>
         <h2>Submissions</h2>
+        <div class="panel-actions">
+          <%= link_to embedded_svg('desktop-download.svg'), form_submissions_path(@form, format: :csv) %>
+        </div>
       </header>
       <div class="panel-body">
         <table>
@@ -31,7 +34,6 @@
             <% end %>
           </tbody>
         </table>
-        <p><%= link_to "Export", form_submissions_path(@form, format: :csv), class: :button %></p>
       </div>
     </div>
   </div>

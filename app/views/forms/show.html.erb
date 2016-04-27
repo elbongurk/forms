@@ -5,6 +5,10 @@
   <div class="panel">
     <header>
       <h2><%= @form.name %></h2>
+      <div class="panel-actions">
+        <%= link_to embedded_svg('pencil.svg'), edit_form_path(@form) %>
+        <%= link_to embedded_svg('trashcan.svg'), form_path(@form), method: :delete, data: { confirm: "Are you sure you want to delete this form?" } %>
+      </div>
     </header>
     <div class="panel-body">
       <h3>Form Code</h3>

@@ -127,7 +127,7 @@ footer[role="contentinfo"] {
   border: 1px solid #e6e5e5;
 }
 
-@for $panel-children from 1 through 5 {
+@for $panel-children from 1 through 3 {
   .panel-wrapper[data-children="#{$panel-children}"] {
     margin-right: 20px * $panel-children;
     margin-bottom: 20px * $panel-children;
@@ -148,6 +148,19 @@ footer[role="contentinfo"] {
 
 .panel header h2, .panel-wrapper header h2 {
   font-size: 1.4em;
+}
+
+.panel header {
+  @include clearfix;
+  h2 {
+    float: left;
+  }
+  .panel-actions {
+    float: right;
+    a {
+      margin-left: 16px;
+    }
+  }
 }
 
 .panel-tools {
