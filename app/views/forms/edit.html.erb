@@ -1,17 +1,27 @@
-<%= panels_for [:root, "Edit Form"] do %>
-  <%= form_for @form do |form| %>
-    <%= form.errors %>
-    <%= form.field_for :name do |name| %>
-      <%= name.label %>
-      <%= name.text_field %>
-    <% end %>
-    <%= form.field_for :redirect_url do |redirect_url| %>
-      <%= redirect_url.label %>
-      <%= redirect_url.text_field %>
-    <% end %>
-    <%= form.field_for :email do |email| %>
-      <label class="checkbox"><%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions</label>
-    <% end %>
-    <p><%= form.submit "Update Form" %> or <%= link_to "Cancel", forms_path %></p>
-  <% end %>
-<% end %>
+<div class="panel-wrapper" data-children="1">
+  <header>
+    <h2><%= link_to "Forms", forms_path %></h2>
+  </header>
+  <div class="panel">
+    <header>
+      <h2>Edit Form</h2>
+    </header>
+    <div class="panel-body">
+      <%= form_for @form do |form| %>
+        <%= form.errors %>
+        <%= form.field_for :name do |name| %>
+          <%= name.label %>
+          <%= name.text_field %>
+        <% end %>
+        <%= form.field_for :redirect_url do |redirect_url| %>
+          <%= redirect_url.label %>
+          <%= redirect_url.text_field %>
+        <% end %>
+        <%= form.field_for :email do |email| %>
+          <label class="checkbox"><%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions</label>
+        <% end %>
+        <p><%= form.submit "Update Form" %> or <%= link_to "Cancel", forms_path %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
