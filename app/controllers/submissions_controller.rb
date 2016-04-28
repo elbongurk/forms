@@ -4,7 +4,7 @@ class SubmissionsController < ApplicationController
 
   def index
     @form = current_user.forms.where(id: params[:form_id]).take!
-    @submissions = @form.submissions.where(spam: false)
+    @submissions = @form.submissions.ham
 
     respond_to do |format|
       format.html

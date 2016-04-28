@@ -6,16 +6,15 @@
     <table>
       <thead>
         <tr>
-          <th>Created At</th>
           <th>Name</th>
           <th>Submissions</th>
-          <th>Updated At</th>
+          <th>Last Submission</th>
           <th colspan="2"></th>
         </tr>
       </thead>
       <tbody>
         <% if @forms.present? %>
-          <%= render @forms %>
+          <%= render partial: 'form', collection: @forms, locals: { submission_count: @submission_count, submission_last: @submission_last } %>
         <% else %>
           <tr>
             <td class="empty" colspan="6">

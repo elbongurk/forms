@@ -4,11 +4,13 @@ class FormsController < ApplicationController
   def index
     @user = current_user
     @forms = current_user.forms
+    @submission_count = current_user.submissions.ham.group(:form_id).count
+    @submission_last = current_user.submissions.ham.group(:form_id).maximum(:created_at)
   end
 
   def show
     @form = current_user.forms.where(id: params[:id]).take!
-    @submissions = @form.submissions.where(spam: false).limit(5)
+    @submissions = @form.submissions.ham.limit(5)
   end
 
   def new

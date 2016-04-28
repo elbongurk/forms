@@ -23,6 +23,8 @@
               <dt><%= key %></dt>
               <dd><%= value %></dd>
             <% end %>
+            <dt>Submitted</dt>
+            <dd><%= local_time(@submission.created_at) %></dd>
           </dl>
         </div>
       </div>

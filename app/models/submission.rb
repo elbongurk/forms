@@ -4,6 +4,10 @@ class Submission < ApplicationRecord
   validates :payload, presence: true
   validates :headers, presence: true
 
+  def self.ham
+    where(spam: false)
+  end
+
   def self.to_csv
     CSV.generate do |csv|
       headers = [ :submitted ]

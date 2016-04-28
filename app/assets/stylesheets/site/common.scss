@@ -180,6 +180,10 @@ footer[role="contentinfo"] {
   }
 }
 
+.panel-body h3 {
+  margin-top: 1.125em;
+}
+
 .panel-small {
   margin: 0 auto;
   max-width: 380px;
@@ -292,6 +296,7 @@ dl {
     clear: left;
     margin-right: 2%;
     margin-top: 0;
+    line-height: 1.875;
   }
   dd {
     display: block;
