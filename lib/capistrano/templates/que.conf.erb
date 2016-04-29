@@ -17,6 +17,6 @@ exec /bin/bash <<EOT
 
   logger -t que "Starting worker: $app"
 
-  exec bundle exec que ./config/environment.rb
+  exec bundle exec rake que:fork_and_work
 EOT
 end script
