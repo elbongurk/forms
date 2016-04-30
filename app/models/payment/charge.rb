@@ -1,7 +1,7 @@
 module Payment
   class Charge
-    def self.since(tick)
-      Collection.new(tick)
+    def self.since(time)
+      Collection.new(time)
     end
 
     def self.create_for_subscription_and_card(subscription, card)
@@ -32,14 +32,15 @@ module Payment
     end
 
     class Collection
-      def initialize(tick)
-        @tick = tick
+      def initialize(time)
+        @time = time
         @data = {}
       end
       
       def fetch
         @data.clear
-        Stripe::Charge.all(created: { gte: @tick }).each do |charge|
+        # TODO: Page this
+        Stripe::Charge.all(limit: 100, created: { gte: @time.to_i }).each do |charge|
           if key = charge.metadata['subscription_id']
             @data[key.to_i] = Charge.new(charge)
           end

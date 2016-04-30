@@ -1,8 +1,11 @@
 class SubscriptionChargeJob < ApplicationJob
-  def perform(tick)
-    payment_charges = Payment::Charge.since(tick).fetch
+  def perform(start_at_tick, end_at_tick)
+    start_at, end_at = Time.at(start_at_tick), Time.at(end_at_tick)
+    time_range = start_at...end_at
+    
+    payment_charges = Payment::Charge.since(end_at).fetch
 
-    Subscription.unarchived.unpaid.includes(:plan, :user).each do |subscription|
+    Subscription.unarchived.chargable.starting(time_range).includes(:plan, :user).each do |subscription|
       if payment_charge = payment_charges.find_by_subscription(subscription)
         subscription.transaction do
           charge = subscription.charges.create_for_payment_charge!(payment_charge)

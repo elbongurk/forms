@@ -12,10 +12,18 @@ class Subscription < ApplicationRecord
 
   enum status: [ :trial, :paid, :unpaid, :comped ]
 
-  def self.ending(time = Time.now.utc)
-    where('period_end <= ?', time)
+  def self.starting(time_range)
+    where(period_start: time_range)
   end
 
+  def self.ending(time_range)
+    where(period_end: time_range)
+  end
+
+  def self.chargable
+    where(status: :unpaid)
+  end
+  
   def self.renewable
     where(status: [:trial, :paid])
   end
