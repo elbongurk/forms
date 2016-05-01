@@ -3,14 +3,15 @@ class FormsController < ApplicationController
 
   def index
     @user = current_user
-    @forms = current_user.forms
+
+    @forms = current_user.forms.order(created_at: :desc)
     @submission_count = current_user.submissions.ham.group(:form_id).count
     @submission_last = current_user.submissions.ham.group(:form_id).maximum(:created_at)
   end
 
   def show
     @form = current_user.forms.where(id: params[:id]).take!
-    @submissions = @form.submissions.ham.limit(5)
+    @submissions = @form.submissions.ham.limit(5).order(created_at: :desc)
   end
 
   def new
@@ -58,6 +59,6 @@ class FormsController < ApplicationController
   private
 
   def safe_params
-    params.require(:form).permit(:name, :redirect_url, :email)
+    params.require(:form).permit(:name, :redirect_url, :email, :additional_emails)
   end
 end

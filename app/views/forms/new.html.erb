@@ -20,6 +20,10 @@
         <%= form.field_for :email do |email| %>
           <label class="checkbox"><%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions</label>
         <% end %>
+        <%= form.field_for :additional_emails do |additional_emails| %>
+          <%= additional_emails.label 'Also send email notifications to these email addresses' %>
+          <%= additional_emails.text_field %>
+        <% end %>
         <p><%= form.submit "Add Form" %> or <%= link_to "Cancel", forms_path %></p>
       <% end %>
     </div>

@@ -4,7 +4,7 @@ class SubmissionsController < ApplicationController
 
   def index
     @form = current_user.forms.where(id: params[:form_id]).take!
-    @submissions = @form.submissions.ham
+    @submissions = @form.submissions.ham.order(created_at: :desc)
 
     respond_to do |format|
       format.html

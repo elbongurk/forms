@@ -6,6 +6,15 @@ class Form < ApplicationRecord
 
   validates :name, presence: true
 
+  def additional_emails=(value)
+    case value
+    when String
+      super(value.downcase.split(/[,\s]+/).map(&:strip) - [''])
+    else
+      super(value)
+    end
+  end
+
   private
 
   def assign_uid
