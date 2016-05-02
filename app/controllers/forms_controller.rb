@@ -1,5 +1,6 @@
 class FormsController < ApplicationController
-  before_action :require_subscription
+  before_action :require_authorization, only: [:index, :destroy]
+  before_action :require_subscription, except: [:index, :destroy]
 
   def index
     @user = current_user

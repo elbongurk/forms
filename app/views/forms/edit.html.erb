@@ -12,23 +12,10 @@
       </header>
       <div class="panel-body">
         <%= form_for @form do |form| %>
-          <%= form.errors %>
-          <%= form.field_for :name do |name| %>
-            <%= name.label %>
-            <%= name.text_field %>
-          <% end %>
-          <%= form.field_for :redirect_url do |redirect_url| %>
-            <%= redirect_url.label %>
-            <%= redirect_url.text_field %>
-          <% end %>
-          <%= form.field_for :email do |email| %>
-            <label class="checkbox"><%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions</label>
-          <% end %>
-          <%= form.field_for :additional_emails do |additional_emails| %>
-            <%= additional_emails.label 'Also send email notifications to these email addresses' %>
-            <%= additional_emails.text_field %>
-          <% end %>
-          <p><%= form.submit "Update Form" %> or <%= link_to "Cancel", form_path(@form) %></p>
+          <%= render partial: 'fields', locals: { form: form } %>
+          <div class="panel-actions">
+            <%= form.submit "Update Form" %> or <%= link_to "Cancel", form_path(@form) %>
+          </div>
         <% end %>
       </div>
     </div>

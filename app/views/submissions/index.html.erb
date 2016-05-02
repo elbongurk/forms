@@ -10,7 +10,7 @@
       <header>
         <h2>Submissions</h2>
         <div class="panel-actions">
-          <%= link_to embedded_svg('desktop-download.svg'), form_submissions_path(@form, format: :csv) %>
+          <%= link_to embedded_svg('desktop-download.svg'), form_submissions_path(@form, format: :csv), title: "Export Submissions" %>
         </div>
       </header>
       <div class="panel-body">

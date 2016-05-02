@@ -19,10 +19,12 @@
         <%= password.password_field %>
       <% end %>
       <%= form.field_for :password_confirmation do |password_confirmation| %>
-        <%= password_confirmation.label "Current Password" %>
+        <%= password_confirmation.label "Confirm Password" %>
         <%= password_confirmation.password_field %>
       <% end %>
-      <p><%= form.submit "Update Account" %> or <%= link_to "Cancel", root_path %></p>
+      <div class="panel-actions">
+        <%= form.submit "Update Account" %> or <%= link_to "Cancel", root_path %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -2,6 +2,6 @@
   <td><%= form.name %></td>
   <td><%= submission_count[form.id] || '—' %></td>
   <td><%= submission_last[form.id] ? local_time(submission_last[form.id]) : '—' %></td>
-  <td><%= link_to embedded_svg("pencil.svg"), edit_form_path(form) %></td>
-  <td><%= link_to embedded_svg("trashcan.svg"), form_path(form), method: :delete, data: { confirm: "Are you sure you want to delete this form?" } %></td>
+  <td><%= link_to embedded_svg("pencil.svg"), edit_form_path(form), title: "Edit Form" %></td>
+  <td><%= link_to embedded_svg("trashcan.svg"), form_path(form), title: "Delete Form", method: :delete, data: { confirm: "Are you sure you want to delete this form?" } %></td>
 </tr>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="32px" height="22px" viewBox="0 0 32 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch Beta 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>Slice 1</title>
+    <desc>Created with Sketch Beta.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="32" height="22" rx="2"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Generic-Front">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Card" fill="#FFB44F" xlink:href="#path-1"></use>
+            <rect id="Logo" fill="#FFDFB5" mask="url(#mask-2)" x="3" y="3" width="10" height="3" rx="1"></rect>
+            <rect id="Text" fill="#F39802" mask="url(#mask-2)" x="3" y="13" width="24" height="2" rx="2"></rect>
+            <rect id="text" fill="#F39802" mask="url(#mask-2)" x="3" y="17" width="14" height="2" rx="2"></rect>
+        </g>
+    </g>
+</svg>

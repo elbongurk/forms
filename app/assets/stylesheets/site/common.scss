@@ -184,6 +184,10 @@ footer[role="contentinfo"] {
   margin-top: 1.125em;
 }
 
+.panel-body .panel-actions {
+  margin-top: 2.125em;
+}
+
 .panel-small {
   margin: 0 auto;
   max-width: 380px;
@@ -320,9 +324,12 @@ pre input[type="text"] {
 }
 
 label.checkbox {
-  margin-bottom: 1.25em;
-  color: #333;
   font-weight: 400;
+  margin-bottom: $small-spacing;
+}
+
+.field-group {
+  margin-bottom: 2em;
 }
 
 input.input-inline {
@@ -378,4 +385,49 @@ $success-color: #e6efc2 !default;
 
 .base-error:empty {
   padding: 0; 
+}
+
+
+.tooltip-item {
+  fill: #999;
+  position: relative;
+  transition: fill $base-duration $base-timing;
+  &:hover {
+    fill: #333;
+    .tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.tooltip {
+  display: inline-block;
+  visibility: hidden;
+  position: absolute;
+  right: -125px;
+  bottom: 32px;
+  width: 256px;
+  text-align: center;
+  font-size: 0.9em;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 1em;
+  opacity: 0;
+  transition: opacity $base-duration $base-timing;
+  z-index: 10;
+  &:after {
+    content: "▼";
+    border: 8px solid transparent;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: white;
+    margin-left: -8px;
+    font-size: 1.4em;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: -1.3em;
+    text-align: center;
+  }
 }

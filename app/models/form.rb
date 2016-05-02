@@ -9,7 +9,7 @@ class Form < ApplicationRecord
   def additional_emails=(value)
     case value
     when String
-      super(value.downcase.split(/[,\s]+/).map(&:strip) - [''])
+      super(value.downcase.split(/[,\s]+/) - [''])
     else
       super(value)
     end

@@ -1,0 +1,35 @@
+<%= form.errors %>
+<div class="field-group">
+  <%= form.field_for :name do |name| %>
+    <%= name.label %>
+    <%= name.text_field %>
+  <% end %>
+  <%= form.field_for :redirect_url do |redirect_url| %>
+    <%= redirect_url.label do %>
+      Redirect URL
+      <span class="tooltip-item">
+        <%= embedded_svg 'question.svg' %>
+        <span class="tooltip">Where to send the user after they submit your form. Leave blank to use our <%= link_to "default confirmation page", thanks_path %>.</span>
+      </span>
+    <% end %>
+    <%= redirect_url.text_field placeholder: thanks_url %>
+  <% end %>
+</div>
+<div class="field-group">
+  <h3>Notifications</h3>
+  <%= form.field_for :email do |email| %>
+    <%= email.label class: :checkbox do %>
+      <%= email.check_box %> Notify me (<%= @current_user.email %>) of new submissions
+    <% end %>
+  <% end %>
+  <%= form.field_for :additional_emails do |additional_emails| %>
+    <%= additional_emails.label do %>
+      Also send email notifications to these email addresses
+      <span class="tooltip-item">
+        <%= embedded_svg 'question.svg' %>
+        <span class="tooltip">Use commas or spaces to separate email addresses</span>
+      </span>
+    <% end %>
+    <%= additional_emails.text_field %>
+  <% end %>
+</div>

@@ -11,9 +11,9 @@
         <h2>Confirm Change</h2>
       </header>
       <div class="panel-body">
+        <p class="flash-notice">You are about to change to the <%= @plan.description %> Plan. Your default <%= link_to "payment method", account_cards_path %> will be billed <strong><%= number_to_currency(@plan.price) %></strong> on <strong><%= local_date(@subscription.billable_on) %></strong>.</p>
         <%= form_for @subscription, url: account_subscription_path do |form| %>
           <%= hidden_field_tag :plan, @plan.name %>
-          <p>You are about to change to the <%= @plan.description %> Plan. You will be billed <strong><%= number_to_currency(@plan.price) %></strong> on <strong><%= local_date(@subscription.billable_on) %></strong>.</p>
           <table>
             <thead>
               <tr>
@@ -30,7 +30,9 @@
               </tr>
             </tbody>
           </table>
-          <%= form.submit "Confirm Change" %>    
+          <div class="panel-actions">
+            <%= form.submit "Confirm Change" %> or <%= link_to "Cancel", account_subscription_path %>
+          </div>
         <% end %>
       </div>
     </div>

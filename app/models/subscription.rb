@@ -112,6 +112,8 @@ class Subscription < ApplicationRecord
   def status_for_switch
     if self.paid?
       :paid
+    elsif self.trial?
+      :trial
     else
       :unpaid
     end

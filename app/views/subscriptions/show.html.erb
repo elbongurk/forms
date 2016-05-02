@@ -26,19 +26,19 @@
                 <% if @plans.include?(plan) %>
                   <% if @cards.count.zero? %>
                     <% if @plan == plan %>
-                      <% if @subscription.try(:comped?) %>
+                      <% if @subscription.comped? %>
                         <span class="plan-current">Your Plan *</span>
                       <% else %>
-                        <%= link_to "Pay Now", new_account_card_path(plan: plan.name) %>
+                        <%= link_to "Pay Now *", new_account_card_path %>
                       <% end %>
                     <% elsif @plan %>
-                      <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_card_path(plan: plan.name) %>
+                      <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_subscription_path(plan: plan.name) %>
                     <% else %>
                       <%= link_to "Choose this plan", new_account_card_path(plan: plan.name ) %>
                     <% end %>
                   <% else %>
                     <% if @plan == plan %>
-                      <span class="plan-current">Your Plan</span>
+                      <span class="plan-current">Your Plan *</span>
                     <% elsif @plan %>
                       <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_subscription_path(plan: plan.name) %>
                     <% else %>
@@ -54,23 +54,30 @@
         </tbody>
       </table>
       <% if @subscription %>
-        <% if @subscription.comped? %>
-          <p>* You have been bestowed with a <strong>free subscription</strong>. Nice!</p>
-        <% elsif @subscription.trial? %>
-          <p>Your trial will end on <%= local_date @subscription.period_end %>.</p>
-        <% else %>
-          <%= form_for @subscription, url: account_subscription_path do |form| %>
-            <% if @subscription.cancel_at_period_end? %>
-              <%= form.hidden_field :cancel_at_period_end, value: false %>
-              <p>Your subscription will end on <%= local_date @subscription.period_end %>.</p>
-              <%= form.submit "Enable Auto-Renewal" %>
+        <div class="panel-actions">
+          <% if @subscription.comped? %>
+            <span>* You have been bestowed with a <strong>free subscription</strong>. Nice!</span>
+          <% elsif @cards.count.zero? %>
+            <% if @subscription.trial?  %>
+              <p>* Your <%= @plan.description %> trial will end on <%= local_date @subscription.period_end %> unless you add a payment method.</p>
             <% else %>
-              <%= form.hidden_field :cancel_at_period_end, value: true %>
-              <p>Your subscription will renew on <%= local_date @subscription.period_end %>.</p>
-              <%= form.submit "Disable Auto-Renewal", data: { confirm: "Are you sure you want to disable auto-renewal?" } %>
+              <p>* Your <%= @plan.description %> subscription requires adding a payment method.</p>
+            <% end %>
+            <%= link_to "Add a Payment Method", new_account_card_path, class: :button %>
+          <% else %>
+            <%= form_for @subscription, url: account_subscription_path do |form| %>            
+              <% if @subscription.cancel_at_period_end? %>
+                <%= form.hidden_field :cancel_at_period_end, value: false %>
+                <p>* Your subscription will end on <%= local_date @subscription.period_end %>.</p>
+                <%= form.submit "Enable Auto-Renewal" %>
+              <% else %>
+                <%= form.hidden_field :cancel_at_period_end, value: true %>
+                <p>* Your subscription will renew on <%= local_date @subscription.period_end %>.</p>
+                <%= form.submit "Disable Auto-Renewal", data: { confirm: "Are you sure you want to disable auto-renewal?" } %>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
+        </div>
       <% end %>
     </div>
   </div>

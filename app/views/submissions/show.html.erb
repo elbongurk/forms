@@ -14,7 +14,7 @@
         <header>
           <h2><%= @submission.preview %></h2>
           <div class="panel-actions">
-            <%= link_to embedded_svg('trashcan.svg'), form_submission_path(@form, @submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" } %>
+            <%= link_to embedded_svg('trashcan.svg'), form_submission_path(@form, @submission), title: "Delete Submission", method: :delete, data: { confirm: "Are you sure you want to delete this submission?" } %>
           </div>
         </header>
         <div class="panel-body">

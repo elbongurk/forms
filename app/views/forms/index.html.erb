@@ -24,11 +24,12 @@
         <% end %>
       </tbody>
     </table>
-    <% if @user.form_quota_met?  %>
-      <p>You will need to upgrade your subscription in order to create more forms.</p>
-      <p><%= link_to "Upgrade Subscription", account_subscription_path, class: :button %></p>
-    <% else %>
-      <p><%= link_to "Add Form", new_form_path, class: :button %></p>
-    <% end %>
+    <div class="panel-actions">
+      <% if @user.form_quota_met?  %>
+        <span>You will need to <%= link_to "upgrade your subscription", account_subscription_path %> in order to create more forms.</span>
+      <% else %>
+        <%= link_to "Add a Form", new_form_path, class: :button %>
+      <% end %>
+    </div>
   </div>
 </div>

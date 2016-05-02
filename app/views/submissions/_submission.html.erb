@@ -1,5 +1,5 @@
 <tr data-url="<%= form_submission_path(submission.form, submission) %>">
   <td><%= submission.preview %></td>
   <td><%= local_time(submission.created_at) %></td>
-  <td><%= link_to embedded_svg("trashcan.svg"), form_submission_path(submission.form, submission), method: :delete, data: { confirm: "Are you sure you want to delete this submission?" } %></td>
+  <td><%= link_to embedded_svg("trashcan.svg"), form_submission_path(submission.form, submission), title: "Delete Submission", method: :delete, data: { confirm: "Are you sure you want to delete this submission?" } %></td>
 </tr>

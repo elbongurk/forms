@@ -64,7 +64,7 @@ class User < ApplicationRecord
   private
 
   def self.normalize_email(email)
-    email.to_s.downcase.gsub(/\s+/, "")
+    email.to_s.downcase.gsub(/\s+/, '')
   end
 
   def clear_password_reset

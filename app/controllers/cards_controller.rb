@@ -9,7 +9,13 @@ class CardsController < ApplicationController
   def new
     @user = current_user
     @card = current_user.cards.new
-    @plan = current_user.plans.where(name: params[:plan]).take
+    if params[:plan].present?
+      @plan = current_user.plans.where(name: params[:plan]).take
+      @subscription = @plan.build_subscription_for_user(@user)
+    else
+      @subscription = current_user.subscriptions.unarchived.where.not(status: :comped).take
+      @plan = @subscription.try(:plan)
+    end
   end
 
   def create
