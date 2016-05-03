@@ -5,7 +5,11 @@
   <div class="panel-wrapper" data-children="1">
     <header>
       <h2>
-        <%= link_to "Payment Methods", account_cards_path %>
+        <% if @subscription.try(:new_record?) %>
+          <%= link_to "Subscription", account_subscription_path %>
+        <% else %>
+          <%= link_to "Payment Methods", account_cards_path %>
+        <% end %>
       </h2>
     </header>
     <div class="panel">
@@ -13,30 +17,34 @@
         <h2>Add Payment Method</h2>
       </header>
       <div class="panel-body">
-        <% if @subscription && @plan %>
+        <% if @plan && @subscription %>
           <p class="flash-notice">This payment method will be billed <strong><%= number_to_currency(@plan.price) %></strong> on <strong><%= local_date(@subscription.billable_on) %></strong> for your <%= @plan.description %> plan.</p>
         <% end %>
-        <%= form_for @card, url: account_cards_path do |form| %>
-          <% if @subscription && @plan %>
-            <%= hidden_field_tag :plan, @plan.name unless @subscription.persisted? %>
+        <%= form_for @card, url: account_cards_path, html: { autocomplete: :on } do |form| %>
+          <% if @subscription.try(:new_record?) %>
+            <%= hidden_field_tag :plan, @plan.try(:name) %>
           <% end %>
           <%= form.errors render: true %>
           <div>
             <label>Card Number</label>
-            <input type="text" size="20" data-stripe="number"/>
+            <div class="input-cc-number-wrapper input-cc-number-generic">
+              <input class="input-cc-number" type="text" maxlength="19" autocomplete="cc-number" required>
+            </div>
           </div>
           <div>
             <label>CVC</label>
-            <input type="text" size="4" data-stripe="cvc"/>
+            <div class="input-cc-cvc-wrapper">
+              <input class="input-cc-cvc" type="text" maxlength="4" autocomplete="cc-csc" required>
+            </div>
           </div>
           <div>
             <label>Expiration</label>
-            <input class="input-inline" type="text" size="2" placeholder="MM" data-stripe="exp-month"/>
+            <input class="input-cc-exp-month" type="text" size="2" maxlength="2" placeholder="MM" autocomplete="cc-exp-month" required>
             <span> / </span>
-            <input class="input-inline" type="text" size="4" placeholder="YYYY" data-stripe="exp-year"/>
+            <input class="input-cc-exp-year" type="text" size="4" maxlength="4" placeholder="YYYY" autocomplete="cc-exp-year" required>
           </div>
           <div class="panel-actions">
-            <%= form.submit "Add Payment Method" %> or <%= link_to "Cancel", account_cards_path %>
+            <%= form.submit "Add Payment Method" %> or <%= link_to "Cancel", @subscription.try(:new_record?) ? account_subscription_path : account_cards_path %>
           </div>
         <% end %>
       </div>

@@ -27,22 +27,22 @@
                   <% if @cards.count.zero? %>
                     <% if @plan == plan %>
                       <% if @subscription.comped? %>
-                        <span class="plan-current">Your Plan *</span>
+                        <span class="plan-current">Subscribed *</span>
                       <% else %>
-                        <%= link_to "Pay Now *", new_account_card_path %>
+                        <%= link_to "Add Payment", new_account_card_path(plan: plan.name), class: 'plan-buy' %> *
                       <% end %>
                     <% elsif @plan %>
-                      <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_subscription_path(plan: plan.name) %>
+                      <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", @subscription.trial? ? new_account_subscription_path(plan: plan.name) : new_account_card_path(plan: plan.name), class: 'plan-change' %>
                     <% else %>
-                      <%= link_to "Choose this plan", new_account_card_path(plan: plan.name ) %>
+                      <%= link_to "Choose this plan", new_account_card_path(plan: plan.name ), class: 'plan-choose' %>
                     <% end %>
                   <% else %>
                     <% if @plan == plan %>
-                      <span class="plan-current">Your Plan *</span>
+                      <span class="plan-current">Subscribed *</span>
                     <% elsif @plan %>
-                      <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_subscription_path(plan: plan.name) %>
+                      <%= link_to @plan.form_quota < plan.form_quota ? "Upgrade" : "Downgrade", new_account_subscription_path(plan: plan.name), class: 'plan-change' %>
                     <% else %>
-                      <%= link_to "Choose this plan", new_account_subscription_path(plan: plan.name ) %>
+                      <%= link_to "Choose this plan", new_account_subscription_path(plan: plan.name ), class: 'plan-choose' %>
                     <% end %>
                   <% end %>
                 <% else %>
@@ -59,11 +59,11 @@
             <span>* You have been bestowed with a <strong>free subscription</strong>. Nice!</span>
           <% elsif @cards.count.zero? %>
             <% if @subscription.trial?  %>
-              <p>* Your <%= @plan.description %> trial will end on <%= local_date @subscription.period_end %> unless you add a payment method.</p>
+              <p>* Your current <%= @plan.description %> trial will end on <%= local_date @subscription.period_end %> unless you add a payment method.</p>
             <% else %>
-              <p>* Your <%= @plan.description %> subscription requires adding a payment method.</p>
+              <p>* Your current <%= @plan.description %> subscription requires adding a payment method.</p>
             <% end %>
-            <%= link_to "Add a Payment Method", new_account_card_path, class: :button %>
+            <%= link_to "Add a Payment Method", new_account_card_path(plan: @plan.name), class: :button %>
           <% else %>
             <%= form_for @subscription, url: account_subscription_path do |form| %>            
               <% if @subscription.cancel_at_period_end? %>

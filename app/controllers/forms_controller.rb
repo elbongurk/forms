@@ -3,8 +3,6 @@ class FormsController < ApplicationController
   before_action :require_subscription, except: [:index, :destroy]
 
   def index
-    @user = current_user
-
     @forms = current_user.forms.order(created_at: :desc)
     @submission_count = current_user.submissions.ham.group(:form_id).count
     @submission_last = current_user.submissions.ham.group(:form_id).maximum(:created_at)

@@ -25,7 +25,7 @@
       </tbody>
     </table>
     <div class="panel-actions">
-      <% if @user.form_quota_met?  %>
+      <% if current_user.form_quota_met?  %>
         <span>You will need to <%= link_to "upgrade your subscription", account_subscription_path %> in order to create more forms.</span>
       <% else %>
         <%= link_to "Add a Form", new_form_path, class: :button %>

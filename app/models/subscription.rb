@@ -28,6 +28,12 @@ class Subscription < ApplicationRecord
     where(status: [:trial, :paid])
   end
 
+  def self.stats
+    self.unarchived.group(:status).count.map do |k, v|
+      [ Subscription.statuses.key(k), v ]
+    end.to_h
+  end
+
   def self.build_unpaid_for_plan(plan)
     self.build_status_for_plan(:unpaid, plan)
   end
@@ -48,6 +54,7 @@ class Subscription < ApplicationRecord
     status = status_for_switch
     attributes = {}
     attributes[:user_id] = self.user_id
+    attributes[:period_start] = self.period_start if self.plan == plan
     attributes[:period_end] = self.period_end if self.period_end.present?
     self.class.build_status_for_plan(status, plan, attributes.merge(other_attributes))
   end
@@ -56,7 +63,7 @@ class Subscription < ApplicationRecord
     attributes = {}
     attributes[:user_id] = self.user_id
     attributes[:period_start] = self.period_end if self.period_end.present?
-    subscription = self.class.build_status_for_plan(:unpaid, self.plan, attributes)
+    self.class.build_status_for_plan(:unpaid, self.plan, attributes)
   end
 
   def switch_to_plan!(plan, other_attributes = {})
@@ -73,9 +80,9 @@ class Subscription < ApplicationRecord
 
   def billable_on
     if self.unpaid?
-      self.period_start
+      [self.period_start, Time.now.utc].max
     else
-      self.period_end
+      [self.period_end, Time.now.utc].max
     end
   end
 

@@ -2,7 +2,6 @@ class SubscriptionsController < ApplicationController
   before_action :require_authorization
 
   def show    
-    @user = current_user
     @subscription = current_user.subscriptions.unarchived.take
     @plan = current_user.plan
     @plans = current_user.plans
@@ -10,21 +9,18 @@ class SubscriptionsController < ApplicationController
   end
   
   def new
-    @user = current_user
     @plan = current_user.plans.where(name: params[:plan]).take
-    @subscription = @plan.build_subscription_for_user(@user)
+    @subscription = @plan.build_subscription_for_user(current_user)
   end
 
   def create
-    @user = current_user
     @plan = current_user.plans.where(name: params[:plan]).take
-    @subscription = @plan.create_subscription_for_user(@user)
+    @subscription = @plan.create_subscription_for_user(current_user)
 
     redirect_to account_subscription_url
   end
 
   def update
-    user = current_user
     subscription = current_user.subscriptions.unarchived.take
     subscription.update(update_params)
 

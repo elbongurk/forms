@@ -2,16 +2,14 @@ class CardsController < ApplicationController
   before_action :require_authorization
 
   def index
-    @user = current_user
     @cards = current_user.cards.unarchived
   end
 
   def new
-    @user = current_user
     @card = current_user.cards.new
     if params[:plan].present?
       @plan = current_user.plans.where(name: params[:plan]).take
-      @subscription = @plan.build_subscription_for_user(@user)
+      @subscription = @plan.try(:build_subscription_for_user, current_user)
     else
       @subscription = current_user.subscriptions.unarchived.where.not(status: :comped).take
       @plan = @subscription.try(:plan)
@@ -19,18 +17,25 @@ class CardsController < ApplicationController
   end
 
   def create
-    @user = current_user
     @card = current_user.cards.create_for_token(params[:token], default: true)
-    @plan = current_user.plans.where(name: params[:plan]).take
-
+    
     if @card.persisted?
-      if @plan
-        @plan.create_subscription_for_user(@user)
+      if params[:plan].present?
+        if plan = current_user.plans.where(name: params[:plan]).take
+          plan.create_subscription_for_user(current_user) unless plan == current_user.plan
+        end
         redirect_to account_subscription_url
       else
         redirect_to account_cards_url
       end
     else
+      if params[:plan].present?
+        @plan = current_user.plans.where(name: params[:plan]).take
+        @subscription = @plan.try(:build_subscription_for_user, current_user)
+      else
+        @subscription = current_user.subscriptions.unarchived.where.not(status: :comped).take
+        @plan = @subscription.try(:plan)
+      end
       render action: :new
     end
   end

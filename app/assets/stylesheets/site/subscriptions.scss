@@ -1,0 +1,18 @@
+.plan-unavailable, .plan-current, a.plan-buy, a.plan-change, a.plan-choose {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.8em;
+  letter-spacing: 0.0357em;
+  color: #888;
+}
+
+a.plan-buy, a.plan-change, a.plan-choose {
+  border: 2px solid #E5E5E5;
+  padding: 4px 12px;
+  border-radius: 3px;
+  &:hover {
+    border-color: #FD133C;
+    background: #FD133C;
+    color: #fff;
+  }
+}

@@ -1,0 +1,62 @@
+input.input-cc-exp-month,
+input.input-cc-exp-year,
+input.input-cc-number,
+input.input-cc-cvc,
+.cc-number,
+.cc-exp, {
+  font-family: 'ocra', $monospace;
+}
+
+input.input-cc-exp-month, input.input-cc-exp-year {
+  display: inline;
+  width: auto;  
+}
+
+input.input-cc-number, input.input-cc-cvc {
+  padding-left: 52px;
+}
+
+.input-cc-number-wrapper, .input-cc-cvc-wrapper {
+  position: relative;  
+  &:after {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 22px;
+    width: 32px;
+    content: "";
+  }
+}
+
+.input-cc-number-generic:after {
+  background: asset-url('cc-generic-front.svg');
+}
+
+.input-cc-number-visa:after {
+  background: asset-url('cc-visa-front.svg');
+}
+
+.input-cc-number-mastercard:after {
+  background: asset-url('cc-mastercard-front.svg');
+}
+
+.input-cc-number-amex:after {
+  background: asset-url('cc-amex-front.svg');
+}
+
+.input-cc-number-discover:after {
+  background: asset-url('cc-discover-front.svg');
+}
+
+.input-cc-cvc-wrapper:after {
+  background: asset-url('cc-generic-back.svg');
+}
+
+
+.card-default {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.8em;
+  letter-spacing: 0.0357em;
+  color: #7b808c;
+}

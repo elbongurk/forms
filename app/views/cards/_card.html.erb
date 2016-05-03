@@ -1,7 +1,7 @@
 <tr>
-  <td><%= card.brand %></td>
-  <td>XXXX-XXXX-XXXX-<%= card.last4 %></td>
-  <td><%= '%.2d' % card.exp_month %>/<%= card.exp_year %></td>
+  <td class="cc-brand"><%= card.brand %></td>
+  <td class="cc-number">XXXX-XXXX-XXXX-<%= card.last4 %></td>
+  <td class="cc-exp"><%= '%.2d' % card.exp_month %>/<%= card.exp_year %></td>
   <td>
     <% if card.default? %>
       <span class="card-default">Default</span>
