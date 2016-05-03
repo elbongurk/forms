@@ -18,7 +18,7 @@
         </thead>
         <tbody>
           <% Plan.unarchived.order(sort: :desc).each do |plan| %>
-            <tr>
+            <tr class="<%= @plan == plan ? "plan plan-subscribed" : "plan" %>">
               <td><%= plan.description %></td>
               <td><%= number_to_currency(plan.price, precision: 0) %> / month</td>
               <td><%= plan.form_quota %></td>
@@ -59,11 +59,10 @@
             <span>* You have been bestowed with a <strong>free subscription</strong>. Nice!</span>
           <% elsif @cards.count.zero? %>
             <% if @subscription.trial?  %>
-              <p>* Your current <%= @plan.description %> trial will end on <%= local_date @subscription.period_end %> unless you add a payment method.</p>
+              <span>* Your <%= @plan.description %> trial will end on <%= local_date @subscription.period_end %> unless you add a payment method.</span>
             <% else %>
-              <p>* Your current <%= @plan.description %> subscription requires adding a payment method.</p>
+              <span>* Your <%= @plan.description %> subscription requires adding a payment method.</span>
             <% end %>
-            <%= link_to "Add a Payment Method", new_account_card_path(plan: @plan.name), class: :button %>
           <% else %>
             <%= form_for @subscription, url: account_subscription_path do |form| %>            
               <% if @subscription.cancel_at_period_end? %>

@@ -3,16 +3,48 @@
   font-weight: 400;
   font-size: 0.8em;
   letter-spacing: 0.0357em;
+}
+
+.plan-unavailable, a.plan-change, a.plan-choose {
   color: #888;
 }
 
-a.plan-buy, a.plan-change, a.plan-choose {
+a.plan-change, a.plan-choose, a.plan-buy {
   border: 2px solid #E5E5E5;
-  padding: 4px 12px;
   border-radius: 3px;
+  padding: 4px 12px;
   &:hover {
     border-color: #FD133C;
     background: #FD133C;
     color: #fff;
+  }
+}
+
+a.plan-buy {
+  color: #fff;
+  border-color: darken(#FD133C, 10%);
+  background: #FD133C;
+  &:hover {
+    border-color: darken(#FD133C, 10%);
+    background: darken(#FD133C, 10%);
+    color: #fff;
+  }
+}
+
+.plan-current {
+  color: darken(#FD133C, 10%);
+}
+
+tr.plan-subscribed {
+  background-color: lighten(#FD133C, 40%);
+  td {
+    border-top: 2px solid lighten(#FD133C, 20%);
+    border-bottom: 2px solid lighten(#FD133C, 20%);
+    &:first-child {
+      border-left: 2px solid lighten(#FD133C, 20%);
+    }
+    &:last-child {
+      border-right: 2px solid lighten(#FD133C, 20%);
+    }
   }
 }
