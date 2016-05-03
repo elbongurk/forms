@@ -110,6 +110,14 @@ namespace :setup do
     end
   end
 
+  desc "Running stats for current setup"
+  task :stats do
+    on roles(:all), in: :parallel do |host|
+      memory = capture(:free, '-hm', strip: false)
+      puts "#{host.hostname} [free -hm]:\n#{memory}"
+    end
+  end
+
   desc 'Restarts services if running'
   task :restart do
     on roles(:app) do |host|
