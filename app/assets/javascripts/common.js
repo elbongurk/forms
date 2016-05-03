@@ -6,3 +6,8 @@ $(document).on('click', 'table tr[data-url]', function(event) {
     }
   }
 });
+
+/* Local Time doesn't listen for Turbolinks 5 */
+document.addEventListener("turbolinks:load", function() {
+  LocalTime.run();
+});
