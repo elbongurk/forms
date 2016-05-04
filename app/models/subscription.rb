@@ -54,7 +54,6 @@ class Subscription < ApplicationRecord
     status = status_for_switch
     attributes = {}
     attributes[:user_id] = self.user_id
-    attributes[:period_start] = self.period_start if self.plan == plan
     attributes[:period_end] = self.period_end if self.period_end.present?
     self.class.build_status_for_plan(status, plan, attributes.merge(other_attributes))
   end
@@ -80,9 +79,9 @@ class Subscription < ApplicationRecord
 
   def billable_on
     if self.unpaid?
-      [self.period_start, Time.now.utc].max
+      self.period_start
     else
-      [self.period_end, Time.now.utc].max
+      self.period_end
     end
   end
 
