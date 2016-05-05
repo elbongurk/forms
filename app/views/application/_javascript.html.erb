@@ -11,3 +11,9 @@
    $.ajaxSetup({ async: false });
   <% end %>
 <% end %>
+
+<% if Rails.env.production? %>
+  <%= javascript_tag do %>
+   Gauges.setSiteId('<%= ENV['GAUGES_SITE_ID'] %>');
+  <% end %>
+<% end %>
