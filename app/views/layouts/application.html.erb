@@ -5,8 +5,14 @@
     <meta name="ROBOTS" content="NOODP" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
-
-    <title>Elbongurk Forms</title>
+    <% if content_for?(:description) %>
+      <meta name="description" content="<%= content_for(:description) %>" />
+    <% end %>
+    <% if content_for?(:title) %>
+      <title><%= content_for(:title) %> | Elbongurk Forms</title>
+    <% else %>
+      <title>Elbongurk Forms</title>
+    <% end %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
     <%= render 'javascript' %>

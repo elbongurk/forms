@@ -1,3 +1,6 @@
+<% content_for(:title) { "HTML forms for designers" } %>
+<% content_for(:description) { "Use regular HTML & CSS to build your form. No special iframes or JavaScript plugins are needed. Style using your own stylesheet just like the rest of your site." } %>
+
 <section class="home-hero">
   <div role="container">
     <div class="home-hero-text">
@@ -17,10 +20,10 @@
     <figure class="home-hero-figure">
       <div class="home-hero-figure-editor">
         <div class="home-hero-figure-editor-chrome">
-          <%= image_tag "hero-editor-chrome.png" %>
+          <%= image_tag "hero-editor-chrome.png", alt: "Text editor chrome" %>
         </div>
         <div class="home-hero-figure-editor-content">
-          <%= image_tag "hero-editor-content.gif" %>
+          <%= image_tag "hero-editor-content.gif", alt: "Text editor content" %>
         </div>
       </div>
     </figure>
@@ -29,7 +32,7 @@
 <section class="home-explain">
   <div role="container">
     <figure class="home-explain-figure">
-      <%= image_tag "explain.png" %>
+      <%= image_tag "explain.png", alt: "Elbongurk Forms Screenshot" %>
     </figure>
     <div class="home-explain-text">
       <h2 class="home-explain-text-header">
@@ -45,7 +48,7 @@
   <div role="container">
     <div class="home-features-item">
       <figure class="home-features-item-figure">
-        <%= image_tag "feature-html.png" %>
+        <%= image_tag "feature-html.png", alt: "Simple Integration" %>
       </figure>
       <div class="home-features-item-text">
         <h2 class="home-features-item-text-header">Simple Integration</h2>
@@ -54,7 +57,7 @@
     </div>
     <div class="home-features-item">
       <figure class="home-features-item-figure">
-        <%= image_tag "feature-css.png" %>
+        <%= image_tag "feature-css.png", alt: "Full Style Control" %>
       </figure>
       <div class="home-features-item-text">
         <h2 class="home-features-item-text-header">Full Style Control</h2>
@@ -63,7 +66,7 @@
     </div>
     <div class="home-features-item">
       <figure class="home-features-item-figure">
-        <%= image_tag "feature-spam.png" %>
+        <%= image_tag "feature-spam.png", alt: "Safe & Simple Web Interface" %>
       </figure>
       <div class="home-features-item-text">
         <h2 class="home-features-item-text-header">Safe &amp; Simple Web Interface</h2>
@@ -72,7 +75,7 @@
     </div>
     <div class="home-features-item">
       <figure class="home-features-item-figure">
-        <%= image_tag "feature-email.png" %>
+        <%= image_tag "feature-email.png", alt: "Spam Blocking" %>
       </figure>
       <div class="home-features-item-text">
         <h2 class="home-features-item-text-header">Spam Blocking</h2>
