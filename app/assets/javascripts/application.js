@@ -2,5 +2,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require local_time
-//= require_tree .
+
+//= require gauges
+//= require common
+//= require forms
+//= require cards
 

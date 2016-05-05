@@ -1,0 +1,19 @@
+window.Gauges = {  
+  run: function() {
+    if (typeof _gauges !== 'undefined') {
+      _gauges.push(['track']);
+    }
+    else {
+      window._gauges = [];
+      var gauges = document.createElement('script');
+      gauges.type  = 'text/javascript';
+      gauges.async = true;
+      gauges.id = 'gauges-tracker';
+      gauges.setAttribute('data-site-id', '<%= ENV['GAUGES_SITE_ID'] %>');
+      gauges.src = 'https://secure.gaug.es/track.js';
+
+      var firstScript = document.getElementsByTagName('script')[0];
+      firstScript.parentNode.insertBefore(gauges, firstScript);
+    }
+  }
+};
