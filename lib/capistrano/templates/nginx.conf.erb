@@ -8,7 +8,7 @@ server {
     server_tokens off;
     root <%= current_path %>/public;
 
-    try_files $uri/index.html $uri @<%= fetch(:application) %>;
+    try_files $uri @<%= fetch(:application) %>;
 
     location @<%= fetch(:application) %> {
         proxy_redirect off;
@@ -20,6 +20,15 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_pass http://<%= fetch(:application) %>;
+    }
+
+    location ~ ^/assets/.+\.(eot|ttf|woff|woff2)$ {
+        gzip_static on;
+        expires max;
+        add_header Cache-Control public;
+        add_header Last-Modified "";
+        add_header Etag "";
+        add_header Access-Control-Allow-Origin *;
     }
 
     location ~ ^/assets/ {
