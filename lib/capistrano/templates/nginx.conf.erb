@@ -4,7 +4,7 @@ upstream <%= fetch(:application) %> {
 
 server {
     listen 80;
-    server_name localhost;
+    server_name <%= options[:host] %>;
     server_tokens off;
     root <%= current_path %>/public;
 

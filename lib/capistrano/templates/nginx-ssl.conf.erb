@@ -4,14 +4,14 @@ upstream <%= fetch(:application) %> {
 
 server {
     listen 80;
-    server_name <%= options.host %>;
+    server_name <%= options[:host] %>;
     server_tokens off;
     return 301 https://$http_host$request_uri;    
 }
 
 server {
     listen 443 ssl;
-    server_name <%= options.host %>;
+    server_name <%= options[:host] %>;
     server_tokens off;
     root <%= current_path %>/public;
 

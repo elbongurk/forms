@@ -77,7 +77,7 @@ namespace :setup do
   task :nginx do
     on roles(:web) do |host|
       execute :rm, '-f /etc/nginx/conf.d/default.conf'
-      template 'nginx.conf', "/etc/nginx/conf.d/#{fetch(:application)}.conf"
+      template 'nginx.conf', "/etc/nginx/conf.d/#{fetch(:application)}.conf", { host: host }
     end
   end
 
@@ -93,8 +93,8 @@ namespace :setup do
   desc "Setup que"
   task :que do
     on roles(:app) do |host|
-      template 'que.conf', '/etc/init/que.conf', host
-      template 'que-manager.conf', '/etc/init/que-manager.conf', host
+      template 'que.conf', '/etc/init/que.conf', { user: host.user }
+      template 'que-manager.conf', '/etc/init/que-manager.conf'
       append current_path, '/etc/que.conf'
     end
   end
