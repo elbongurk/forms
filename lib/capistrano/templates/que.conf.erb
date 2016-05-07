@@ -13,7 +13,7 @@ instance ${app}
 script
 exec /bin/bash <<EOT
   cd $app
-  source /etc/profile.d/environment.sh
+  source /etc/environment.local
 
   logger -t que "Starting worker: $app"
 

@@ -52,7 +52,7 @@ namespace :setup do
       options[:rails_env] = fetch(:rails_env) || fetch(:stage)
       options[:host] = host
       options[:secret_key_base] = capture(:openssl, 'rand -hex 64')
-      template 'environment.sh', '/etc/profile.d/environment.sh', options
+      template 'environment.local', '/etc/environment.local', options
     end
   end
 
