@@ -218,14 +218,29 @@ footer[role="contentinfo"] {
 .panel-small-double-wide {
   max-width: 760px;
   .panel-body {
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
     padding: 0;
-    @include clearfix;
+    @media (min-width: $medium-screen) {
+      display: flex;
+      @include clearfix;
+    }
   }
   .panel-body-left, .panel-body-right {
+    box-shadow: 0 1px 3px 0 #bfbfbf;
     padding: 30px;
     @media (min-width: $medium-screen) {
+      flex: 1;
       float: left;
       width: 50%;
+    }
+  }
+  .panel-body-left {
+    background: #fff;
+    border-radius: 6px 6px 0 0;
+    @media (min-width: $medium-screen) {
+      border-radius: 6px 0 0 6px;
     }
   }
   .panel-body-right {
@@ -241,7 +256,6 @@ footer[role="contentinfo"] {
     border-radius: 0 0 6px 6px;
     @media (min-width: $medium-screen) {
       border-radius: 0 6px 6px 0;
-      height: 320px;
     }
   }
   .panel-body-right-note {
