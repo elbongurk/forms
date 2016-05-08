@@ -8,11 +8,11 @@
         <%= hidden_field_tag :plan, @plan.name %>
         <%= form.errors %>
         <%= form.field_for :email do |email| %>
-          <%= email.label %>
+          <%= email.label "Your Email" %>
           <%= email.email_field %>
         <% end %>
         <%= form.field_for :password do |password| %>
-          <%= password.label %>
+          <%= password.label "Create a password" %>
           <%= password.password_field %>
         <% end %>
         <p><%= form.submit "Sign up" %></p>
