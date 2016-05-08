@@ -53,6 +53,7 @@ namespace :setup do
       options[:host] = host
       options[:secret_key_base] = capture(:openssl, 'rand -hex 64')
       template 'environment.local', '/etc/environment.local', options
+      execute :sed, "-i '1i source /etc/environment.local' $HOME/.bashrc"
     end
   end
 

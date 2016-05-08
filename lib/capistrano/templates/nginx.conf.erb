@@ -24,6 +24,7 @@ server {
 
     location ~ ^/assets/.+\.(eot|ttf|woff|woff2)$ {
         gzip_static on;
+        gzip_proxied any;
         expires max;
         add_header Cache-Control public;
         add_header Last-Modified "";
@@ -33,6 +34,7 @@ server {
 
     location ~ ^/assets/ {
         gzip_static on;
+        gzip_proxied any;
         expires max;
         add_header Cache-Control public;
         add_header Last-Modified "";
