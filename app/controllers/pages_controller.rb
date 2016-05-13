@@ -1,4 +1,7 @@
 class PagesController < ApplicationController
+  def sitemap    
+  end
+
   def guide    
   end
 

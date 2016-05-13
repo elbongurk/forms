@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sitemap.xml', to: 'pages#sitemap', as: 'sitemap'
   get 'guide', to: 'pages#guide', as: 'guide'
   get 'thanks', to: 'pages#thanks', as: 'thanks'
   get 'contact', to: 'pages#contact', as: 'contact'
