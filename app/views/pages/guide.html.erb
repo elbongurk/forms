@@ -1,0 +1,69 @@
+<% content_for(:title) { "Quickstart Guide" } %>
+
+<div class="longform-content" role="container">
+  <h2>Quickstart Guide</h2>
+  <p>Elbongurk Forms is an unobtrusive, designer-friendly way to add any kind of custom online form to your website.</p>
+  <p>Installation is easy. Once you've <%= link_to "created a Form", new_form_path %>, you just copy and paste the url we provide and away you go.</p>
+  <p>Although you can create any kind of form, for this quickstart guide, we will walk you through the process of creating a simple contact form.</p>
+  <p>Begin by adding the following HTML snippet on the web page you'd like have your form on:</p>  
+  <%= syntax :html do %>
+<form method="POST" action="" class="sample-form">
+  <input name="name" placeholder="Your name">
+  <input name="email" placeholder="Your email">
+  <textarea name="comment" placeholder="Your comment"></textarea>
+  <button>Send!</button>
+</form>
+  <% end %>
+  <p>Notice that the <code>action</code> attribute is empty. We need to get this from Elbongurk Forms. After you <%= link_to "create a form", new_form_path %>, we provide you with this url in a red highlighted box as displayed here:</p>
+  <figure>
+    <%= image_tag "explain.png", alt: "Elbongurk Forms Screenshot" %>
+    <figcaption>Location of the action url in red highlighted box</figcaption>
+  </figure>
+  <p>Copy and paste the contents of that red highlighted box into the <code>action</code> attribute of your HTML snippet. Your snippet should now look similar to this:</p>
+  <%= syntax :html do %>
+<form method="POST" action="<%= submissions_url("XXXXXX") %>" class="sample-form">
+  <input name="name" placeholder="Your name">
+  <input name="email" placeholder="Your email">
+  <textarea name="comment" placeholder="Your comment"></textarea>
+  <button>Send!</button>
+</form>
+  <% end %>
+  <p>Great! You now have a fully functional form! However, you may want to consider adding some CSS to style your form. Elbongurk Forms doesn't dictate what your form should look like. How you choose to present it is completely up to you. For this simple contact form, lets add the following CSS snippet to our site's stylesheet:</p>
+  <%= syntax :css do %>
+.sample-form input, .sample-form textarea { 
+  display: block;
+  width: 100%;
+  outline: 0;
+  border: 0;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+  padding: 12px 0;
+  font-size: 16px;
+}
+.sample-form input:focus, .sample-form textarea:focus { 
+  border-color: #ff0a35;
+}
+.sample-form textarea {
+  height: 200px;
+}
+.sample-form button {
+  border: 0;
+  background-color: #ff0a35;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 12px 24px;
+}
+  <% end %>
+  <p>You can see that styling a form is no different than styling the rest of your site. Feel free to tweak and modify this CSS to best suit your site's design.</p>
+  <p>With the CSS and HTML in place, your web page now contains a fully functional form that looks something like this:</p>
+  <form class="sample-form" method="POST" action="">
+    <input type="text" name="name" placeholder="Your name">
+    <input type="email" name="email" placeholder="Your email">
+    <textarea name="comment" placeholder="Your comment"></textarea>
+    <button disabled>Send!</button>
+  </form>
+  <p>Perfect! Go ahead and enter a name, email, and comment and give your form a try. If you chose to have your submissions emailed, you will receive a new email with what you just filled in.  You can also <%= link_to "sign in", sign_in_path %> to Elbongurk Forms to check on your submissions at anytime.</p>
+  <p>Things didn't go right? We're here to help. Shoot us a message on our <%= link_to "contact us", contact_path %> page and we'll help troubleshoot your issue or answer any other questions that you may have.</p>
+  <p>We've also packaged up the HTML and CSS for this sample contact form and made it available to <a href="https://codepen.io/elbongurkforms/pen/MyRJzV">edit on CodePen</a>. You can also check out <a href="https://codepen.io/elbongurkforms/pens/public/">our CodePen profile</a> for more form ideas.</p>
+</div>

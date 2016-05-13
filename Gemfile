@@ -16,6 +16,7 @@ gem 'local_time'
 
 gem 'bourbon'
 gem 'bitters'
+gem 'rouge'
 
 gem 'bcrypt', '~> 3.1.7'
 

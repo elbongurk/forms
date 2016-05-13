@@ -15,13 +15,10 @@
     <div class="panel-body">
       <h3>Form Code</h3>
       <p>Here's your custom generated action url. Simply copy it from here and paste it into your own form. Make sure it to put it in the <code>action</code> attibute as shown in our example below.</p>
-      <code>
-        <pre>
-&lt;form method="POST" action="<input readonly type="text" value="<%= submissions_url(@form.uid) %>">"&gt;
+      <pre class="form-code"><code>&lt;form method="POST" action="<input readonly type="text" value="<%= submissions_url(@form.uid) %>">"&gt;
   &lt;!-- Your custom form inputs go here --&gt;
-&lt;/form&gt;
-        </pre>
-      </code>
+&lt;/form&gt;</code></pre>
+      <p class="form-caption">How do I use this? Check out our <%= link_to "Quickstart Guide", guide_path %>.</p>
       <h3>Recent Submissions</h3>
       <table>
         <thead>

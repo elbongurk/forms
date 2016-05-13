@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'guide', to: 'pages#guide', as: 'guide'
   get 'thanks', to: 'pages#thanks', as: 'thanks'
   get 'contact', to: 'pages#contact', as: 'contact'
   get 'privacy', to: 'pages#privacy', as: 'privacy'

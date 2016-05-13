@@ -16,6 +16,43 @@
   }
 }
 
+.longform-content {
+  max-width: 760px;
+  ul {
+    list-style: disc;
+  }
+  ol {
+    list-style: decimal;
+  }
+  ol, ul {
+    margin-left: 38px;
+    margin-bottom: 20px;
+  }  
+  h2 {
+    font-size: 40px;
+    margin-top: 40px;
+  }
+  h3 {
+    margin-top: 30px;
+  }
+  form {
+    margin-bottom: 2em;
+    background: #fefefe;
+    padding: 16px;
+    border-radius: 3px;
+  }
+  figure {
+    margin: 0;
+    margin-bottom: 2em;
+    text-align: center;
+    figcaption {
+      font-size: 0.8em;
+      color: #888;
+      font-style: italic;
+    }
+  }
+}
+
 /* BODY */
 
 body {
@@ -326,15 +363,25 @@ dl {
 
 /* FORMS */
 
-pre input[type="text"] {
-  width: 420px;
-  display: inline;
-  border-color: $action-color;
-  border-width: 3px;
-  margin-bottom: 0;
-  padding: 2px 4px;
-  border-radius: 0;
-  font-family: $monospace;
+.form-caption {
+  color: #888;
+  font-size: 0.8em;
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+.form-code {
+  margin: 1em 0;
+  input[type="text"] {
+    width: 420px;
+    display: inline;
+    border-color: $action-color;
+    border-width: 3px;
+    margin-bottom: 0;
+    padding: 2px 4px;
+    border-radius: 0;
+    font-family: $monospace;
+  }
 }
 
 label.checkbox {
