@@ -16,4 +16,5 @@
   <%= javascript_tag do %>
    Gauges.setSiteId('<%= ENV['GAUGES_SITE_ID'] %>');
   <% end %>
+  <%= javascript_include_tag 'https://load.sumome.com/', 'async' => true, 'data-sumo-site-id' => ENV['SUMO_SITE_ID'] %>
 <% end %>
