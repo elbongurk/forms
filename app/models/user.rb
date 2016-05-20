@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
   
   def form_quota_met?
-    self.forms.count >= self.plan.form_quota
+    self.forms.count >= (self.plan.try(:form_quota) || 0)
   end
   
   def plans
