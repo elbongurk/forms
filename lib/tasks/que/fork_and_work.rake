@@ -5,7 +5,7 @@ namespace :que do
   task fork_and_work: :environment do
     Que.logger.level = Logger.const_get((ENV['QUE_LOG_LEVEL'] || 'INFO').upcase)
     worker_count     = (ENV['QUE_WORKER_COUNT'] || 1).to_i
-    wake_interval    = (ENV['QUE_WAKE_INTERVAL'] || 0.1).to_f
+    wake_interval    = (ENV['QUE_WAKE_INTERVAL'] || 5).to_f
     queue            = ENV['QUE_QUEUE'] || ''
 
     parent_pid = Process.pid
